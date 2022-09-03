@@ -6,9 +6,8 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_fir_e_commerce/src/counter/counter.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:flutter_fir_e_commerce/counter/counter.dart';
 
 void main() {
   group('CounterCubit', () {

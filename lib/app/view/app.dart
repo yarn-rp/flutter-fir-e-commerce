@@ -6,12 +6,12 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_fir_e_commerce/counter/counter.dart';
 import 'package:flutter_fir_e_commerce/l10n/l10n.dart';
+import 'package:flutter_fir_e_commerce/src/counter/counter.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App();
 
   @override
   Widget build(BuildContext context) {

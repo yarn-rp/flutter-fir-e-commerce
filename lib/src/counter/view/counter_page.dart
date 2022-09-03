@@ -7,11 +7,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fir_e_commerce/counter/counter.dart';
 import 'package:flutter_fir_e_commerce/l10n/l10n.dart';
+import 'package:flutter_fir_e_commerce/src/counter/counter.dart';
 
 class CounterPage extends StatelessWidget {
-  const CounterPage({super.key});
+  const CounterPage();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CounterPage extends StatelessWidget {
 }
 
 class CounterView extends StatelessWidget {
-  const CounterView({super.key});
+  const CounterView();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class CounterView extends StatelessWidget {
 }
 
 class CounterText extends StatelessWidget {
-  const CounterText({super.key});
+  const CounterText();
 
   @override
   Widget build(BuildContext context) {
