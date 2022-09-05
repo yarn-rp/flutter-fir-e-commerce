@@ -26,6 +26,7 @@ class EditCategoryUseCase extends UseCase<Unit, EditCategoryParams> {
     try {
       colorHex = params.color?.toHex();
     } catch (_) {
+      //TODO(yarn): change this failure for a NotValidColorFailure
       return left(const UnexpectedFailure());
     }
 

@@ -4,30 +4,6 @@ import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dar
 import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
 import 'package:fpdart/fpdart.dart';
 
-class CategoryToCreate {
-  CategoryToCreate({
-    required this.colorHex,
-    required this.name,
-    required this.imageUrl,
-  });
-
-  final String colorHex;
-  final String name;
-  final String imageUrl;
-}
-
-class CategoryFieldsToEdit {
-  CategoryFieldsToEdit({
-    this.colorHex,
-    this.name,
-    this.imageUrl,
-  });
-
-  final String? colorHex;
-  final String? name;
-  final String? imageUrl;
-}
-
 abstract class CategoryRepository {
   CategoryRepository(this.networkInfo);
 
@@ -62,5 +38,31 @@ abstract class CategoryRepository {
     required CategoryFieldsToEdit fields,
   });
 
-  Future<Result<Unit>> removeCategory({String categoryId});
+  Future<Result<Unit>> removeCategory({
+    required String categoryId,
+  });
+}
+
+class CategoryToCreate {
+  CategoryToCreate({
+    required this.colorHex,
+    required this.name,
+    required this.imageUrl,
+  });
+
+  final String colorHex;
+  final String name;
+  final String imageUrl;
+}
+
+class CategoryFieldsToEdit {
+  CategoryFieldsToEdit({
+    this.colorHex,
+    this.name,
+    this.imageUrl,
+  });
+
+  final String? colorHex;
+  final String? name;
+  final String? imageUrl;
 }

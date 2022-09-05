@@ -5,8 +5,8 @@ import 'package:flutter_fir_e_commerce/core/use_case/use_case.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/repositories/product_repository.dart';
 
-class GetProductUseCase extends UseCase<Iterable<Product>, PaginationParams> {
-  GetProductUseCase(this._repository);
+class GetProductsUseCase extends UseCase<Iterable<Product>, PaginationParams> {
+  GetProductsUseCase(this._repository);
 
   final CollectionProductRepository _repository;
 
