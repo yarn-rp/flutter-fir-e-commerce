@@ -9,9 +9,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_fir_e_commerce/firebase_options.dart';
+import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -29,9 +28,8 @@ class AppBlocObserver extends BlocObserver {
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  configureDependencies();
+
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };

@@ -18,8 +18,8 @@ CategoryReadModel _$CategoryReadModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CategoryReadModelToJson(CategoryReadModel instance) =>
     <String, dynamic>{
       'colorHex': instance.colorHex,
-      'imageUrl': instance.imageUrl,
-      'name': instance.name,
       'id': instance.id,
+      'imageUrl': instance.imageUrl,
       'isFavorite': instance.isFavorite,
+      'name': instance.name,
     };

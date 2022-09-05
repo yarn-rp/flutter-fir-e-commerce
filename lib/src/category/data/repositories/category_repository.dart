@@ -1,20 +1,41 @@
+import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart';
 import 'package:flutter_fir_e_commerce/core/result_type/result_type.dart';
-import 'package:flutter_fir_e_commerce/src/category/data/datasources/remote_data_source/category_remote_data_source.dart';
+import 'package:flutter_fir_e_commerce/src/category/data/data_sources/remote_data_source/category_remote_data_source.dart';
+import 'package:flutter_fir_e_commerce/src/category/data/models/category_read_model/category_read_model.dart';
+import 'package:flutter_fir_e_commerce/src/category/data/models/category_write_model/category_write_model.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/repositories/category_repository.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
-import 'package:fpdart/src/unit.dart';
+import 'package:fpdart/fpdart.dart';
 
-class RealCategoryRepository implements CategoryRepository {
-  RealCategoryRepository(this.networkInfo, this.categoryRemoteDataSource);
+import 'package:injectable/injectable.dart';
+
+@Singleton(as: CategoryRepository)
+class CategoryRepositoryImpl implements CategoryRepository {
+  CategoryRepositoryImpl(
+    this.networkInfo,
+    this.categoryRemoteDataSource,
+  );
 
   final NetworkInfo networkInfo;
   final CategoryRemoteDataSource categoryRemoteDataSource;
   @override
-  Future<Result<Unit>> createCategory({required CategoryToCreate category}) {
-    // TODO: implement createCategory
-    throw UnimplementedError();
+  Future<Result<Unit>> createCategory({
+    required CategoryToCreate category,
+  }) async {
+    try {
+      await categoryRemoteDataSource.createCategory(
+        category: CategoryWriteModel(
+          colorHex: category.colorHex,
+          name: category.name,
+          imageUrl: category.imageUrl,
+        ),
+      );
+      return right(unit);
+    } catch (e) {
+      return left(const UnexpectedFailure());
+    }
   }
 
   @override
@@ -25,10 +46,21 @@ class RealCategoryRepository implements CategoryRepository {
   }
 
   @override
-  Future<Result<Iterable<Category>>> getCategories(
-      {String query = '', int skip = 0, int take = 16}) {
-    // TODO: implement getCategories
-    throw UnimplementedError();
+  Future<Result<Iterable<Category>>> getCategories({
+    String query = '',
+    int skip = 0,
+    int take = 16,
+  }) async {
+    try {
+      final categories = await categoryRemoteDataSource.getCategories(
+        skip: skip,
+        take: take,
+        query: query,
+      );
+      return right(categories.map(modelToEntity));
+    } catch (e) {
+      return left(const UnexpectedFailure());
+    }
   }
 
   @override

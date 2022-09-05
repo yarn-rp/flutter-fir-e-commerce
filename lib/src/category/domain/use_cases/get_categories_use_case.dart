@@ -3,7 +3,9 @@ import 'package:flutter_fir_e_commerce/core/use_case/pagination_params.dart';
 import 'package:flutter_fir_e_commerce/core/use_case/use_case.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/repositories/category_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class GetCategoriesUseCase
     extends UseCase<Iterable<Category>, PaginationParams> {
   GetCategoriesUseCase(this._repository);
