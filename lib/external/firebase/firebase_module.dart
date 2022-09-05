@@ -4,7 +4,7 @@ import 'package:flutter_fir_e_commerce/firebase_options.dart';
 import 'package:injectable/injectable.dart';
 
 @module
-abstract class FirebaseFacade {
+abstract class FirebaseModule {
   @singleton
   Future<FirebaseApp> get firebaseApp => Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,

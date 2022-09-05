@@ -7,7 +7,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:cloud_firestore/cloud_firestore.dart' as _i4;
 import 'package:firebase_core/firebase_core.dart' as _i3;
-import 'package:flutter_fir_e_commerce/external/firebase/firebase_facade.dart'
+import 'package:flutter_fir_e_commerce/external/firebase/firebase_module.dart'
     as _i5;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart'
@@ -18,10 +18,10 @@ import 'package:injectable/injectable.dart'
 _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
-  final firebaseFacade = _$FirebaseFacade();
-  gh.singletonAsync<_i3.FirebaseApp>(() => firebaseFacade.firebaseApp);
-  gh.singleton<_i4.FirebaseFirestore>(firebaseFacade.firestore);
+  final firebaseModule = _$FirebaseModule();
+  gh.singletonAsync<_i3.FirebaseApp>(() => firebaseModule.firebaseApp);
+  gh.singleton<_i4.FirebaseFirestore>(firebaseModule.firestore);
   return get;
 }
 
-class _$FirebaseFacade extends _i5.FirebaseFacade {}
+class _$FirebaseModule extends _i5.FirebaseModule {}

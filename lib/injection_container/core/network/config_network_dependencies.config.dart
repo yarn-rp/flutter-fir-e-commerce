@@ -9,7 +9,7 @@ import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.da
     as _i3;
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info_impl.dart'
     as _i4;
-import 'package:flutter_fir_e_commerce/external/internet_connection_checker/internet_connection_checker_facade.dart'
+import 'package:flutter_fir_e_commerce/external/internet_connection_checker/internet_connection_checker_module.dart'
     as _i5;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart'
@@ -21,6 +21,6 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   gh.singleton<_i3.NetworkInfo>(
-      _i4.NetworkInfoImpl(get<_i5.ConnectionCheckerFacade>()));
+      _i4.NetworkInfoImpl(get<_i5.ConnectionCheckerModule>()));
   return get;
 }

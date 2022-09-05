@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:flutter_fir_e_commerce/external/firebase/firebase_module.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/models/category_read_model/category_read_model.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/models/category_write_model/category_write_model.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton
 class CategoryRemoteDataSource {
-  CategoryRemoteDataSource()
-      : categoriesCollection =
-            FirebaseFirestore.instance.collection('category');
+  CategoryRemoteDataSource(FirebaseModule firebaseModule)
+      : categoriesCollection = firebaseModule.firestore.collection('category');
 
   late final CollectionReference categoriesCollection;
 
