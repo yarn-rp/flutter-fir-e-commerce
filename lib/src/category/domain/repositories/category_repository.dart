@@ -5,10 +5,6 @@ import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart'
 import 'package:fpdart/fpdart.dart';
 
 abstract class CategoryRepository {
-  CategoryRepository(this.networkInfo);
-
-  final NetworkInfo networkInfo;
-
   Future<Result<Iterable<Category>>> getCategories({
     String query = '',
     int skip = 0,
@@ -23,7 +19,7 @@ abstract class CategoryRepository {
   });
 
   Future<Result<Iterable<Product>>> getProductsFromCategory({
-    String categorySlug,
+    required String categorySlug,
     String query = '',
     int skip = 0,
     int take = 16,
