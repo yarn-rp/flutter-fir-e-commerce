@@ -1,6 +1,7 @@
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart';
 import 'package:flutter_fir_e_commerce/core/result_type/result_type.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
+import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
 import 'package:fpdart/fpdart.dart';
 
 class CategoryToCreate {}
@@ -18,7 +19,10 @@ abstract class CategoryRepository {
     int take = 16,
   });
 
-  Future<Result<Iterable<Category>>> getProductsFromCategory({
+  Future<Result<Category>> getCategoryDetails({
+    String categorySlug,
+  });
+  Future<Result<Iterable<Product>>> getProductsFromCategory({
     String categorySlug,
     String query = '',
     int skip = 0,

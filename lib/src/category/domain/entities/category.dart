@@ -1,13 +1,11 @@
 import 'dart:ui';
 
-import 'package:flutter_fir_e_commerce/core/image/image.dart';
-
 class Category {
   Category({
     required this.color,
     required this.id,
     required this.name,
-    required this.image,
+    required this.imageUrl,
     required this.slug,
   });
 
@@ -15,5 +13,5 @@ class Category {
   final String id;
   final String name;
   final String slug;
-  final ImageRepresentation image;
+  final String imageUrl;
 }
