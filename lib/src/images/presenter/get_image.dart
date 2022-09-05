@@ -9,7 +9,9 @@ import 'package:image_picker/image_picker.dart';
 
 final _imagePicker = ImagePicker();
 FutureOr<File?> getGeneralImage(
-    BuildContext context, ImageSource source) async {
+  BuildContext context,
+  ImageSource source,
+) async {
   final pickedFile = await _imagePicker.pickImage(
     source: source,
     preferredCameraDevice: CameraDevice.front,
