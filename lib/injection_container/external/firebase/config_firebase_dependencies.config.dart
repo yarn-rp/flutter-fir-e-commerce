@@ -15,12 +15,13 @@ import 'package:injectable/injectable.dart'
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
-_i1.GetIt $initGetIt(_i1.GetIt get,
-    {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
+Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
+    {String? environment, _i2.EnvironmentFilter? environmentFilter}) async {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final firebaseModule = _$FirebaseModule();
-  gh.singletonAsync<_i3.FirebaseApp>(() => firebaseModule.firebaseApp);
-  gh.singleton<_i4.FirebaseFirestore>(firebaseModule.firestore);
+  await gh.singletonAsync<_i3.FirebaseApp>(() => firebaseModule.firebaseApp,
+      preResolve: true);
+  gh.lazySingleton<_i4.FirebaseFirestore>(() => firebaseModule.firestore);
   return get;
 }
 

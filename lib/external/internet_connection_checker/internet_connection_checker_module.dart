@@ -3,7 +3,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 @module
 abstract class ConnectionCheckerModule {
-  @singleton
+  @lazySingleton
   InternetConnectionChecker get connectionChecker =>
       InternetConnectionChecker();
 }

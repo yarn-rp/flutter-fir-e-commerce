@@ -5,10 +5,9 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:cloud_firestore/cloud_firestore.dart' as _i4;
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart'
     as _i7;
-import 'package:flutter_fir_e_commerce/external/firebase/firebase_module.dart'
-    as _i4;
 import 'package:flutter_fir_e_commerce/src/category/data/data_sources/remote_data_source/category_remote_data_source.dart'
     as _i3;
 import 'package:flutter_fir_e_commerce/src/category/data/repositories/category_repository.dart'
@@ -23,6 +22,8 @@ import 'package:flutter_fir_e_commerce/src/category/domain/use_cases/edit_catego
     as _i11;
 import 'package:flutter_fir_e_commerce/src/category/domain/use_cases/get_categories_use_case.dart'
     as _i12;
+import 'package:flutter_fir_e_commerce/src/category/presentation/state_manegement/category_cubit/category_cubit.dart'
+    as _i13;
 import 'package:flutter_fir_e_commerce/src/images/repository/image_repository.dart'
     as _i9;
 import 'package:get_it/get_it.dart' as _i1;
@@ -35,7 +36,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   gh.singleton<_i3.CategoryRemoteDataSource>(
-      _i3.CategoryRemoteDataSource(get<_i4.FirebaseModule>()));
+      _i3.CategoryRemoteDataSource(get<_i4.FirebaseFirestore>()));
   gh.singleton<_i5.CategoryRepository>(_i6.CategoryRepositoryImpl(
       get<_i7.NetworkInfo>(), get<_i3.CategoryRemoteDataSource>()));
   gh.factory<_i8.CreateCategoryUseCase>(() => _i8.CreateCategoryUseCase(
@@ -46,5 +47,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       get<_i5.CategoryRepository>(), get<_i9.ImageRepository>()));
   gh.factory<_i12.GetCategoriesUseCase>(
       () => _i12.GetCategoriesUseCase(get<_i5.CategoryRepository>()));
+  gh.factory<_i13.CategoryCubit>(
+      () => _i13.CategoryCubit(get<_i12.GetCategoriesUseCase>()));
   return get;
 }

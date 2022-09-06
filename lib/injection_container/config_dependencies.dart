@@ -1,30 +1,32 @@
+import 'dart:async';
+
 import 'package:flutter_fir_e_commerce/injection_container/core/config_core_dependencies.dart';
 import 'package:flutter_fir_e_commerce/injection_container/external/config_external_dependencies.dart';
 import 'package:flutter_fir_e_commerce/injection_container/src/config_src_dependencies.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-typedef GetItConfigFunction = void Function(
+typedef GetItConfigFunction = FutureOr<void> Function(
   GetIt get, {
   Environment? environment,
   EnvironmentFilter? environmentFilter,
 });
-const environment = Environment('prod');
-final getIt = GetIt.instance;
+// const environment = Environment('prod');
+final sl = GetIt.I;
 
-void configureDependencies({
+Future<void> configureDependencies({
   Environment environment = const Environment('dev'),
-}) {
-  final configFunctions = <GetItConfigFunction>[
-    configureSrcDependencies,
-    configureExternalDependencies,
-    configureCoreDependencies,
-  ];
-
-  return configFunctions.forEach(
-    (f) => f(
-      getIt,
-      environment: environment,
-    ),
+}) async {
+  await configureExternalDependencies(
+    sl,
+    environment: environment,
+  );
+  await configureCoreDependencies(
+    sl,
+    environment: environment,
+  );
+  await configureSrcDependencies(
+    sl,
+    environment: environment,
   );
 }

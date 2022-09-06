@@ -7,6 +7,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_fir_e_commerce/l10n/l10n.dart';
+import 'package:flutter_fir_e_commerce/src/category/presentation/pages/categories_page.dart';
+
 import 'package:flutter_fir_e_commerce/src/counter/counter.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -27,7 +29,7 @@ class App extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const CategoriesPage(),
     );
   }
 }

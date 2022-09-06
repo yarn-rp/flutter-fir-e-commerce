@@ -18,8 +18,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final connectionCheckerModule = _$ConnectionCheckerModule();
-  gh.singleton<_i3.InternetConnectionChecker>(
-      connectionCheckerModule.connectionChecker);
+  gh.lazySingleton<_i3.InternetConnectionChecker>(
+      () => connectionCheckerModule.connectionChecker);
   return get;
 }
 
