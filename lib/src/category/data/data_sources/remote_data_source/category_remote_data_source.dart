@@ -1,42 +1,60 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'dart:developer';
 
-import 'package:flutter_fir_e_commerce/external/firebase/firebase_module.dart';
-import 'package:flutter_fir_e_commerce/src/category/data/models/category_read_model/category_read_model.dart';
-import 'package:flutter_fir_e_commerce/src/category/data/models/category_write_model/category_write_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_fir_e_commerce/src/category/data/error/category_exceptions.dart';
+import 'package:flutter_fir_e_commerce/src/category/data/models/category_model/category_model.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton
 class CategoryRemoteDataSource {
   CategoryRemoteDataSource(FirebaseFirestore firestore)
-      : categoriesCollection = firestore.collection('category');
+      : categoriesCollection =
+            firestore.collection('category').withConverter<CategoryModel>(
+                  fromFirestore: CategoryModel.fromFirestore,
+                  toFirestore: (c, options) => c.toJson(),
+                );
 
-  late final CollectionReference categoriesCollection;
+  late final CollectionReference<CategoryModel> categoriesCollection;
 
-  Future<void> createCategory({required CategoryWriteModel category}) async {
+  Future<CategoryModel> createCategory({
+    required CategoryModel category,
+  }) async {
     try {
-      final _ = await categoriesCollection.add(category.toJson());
+      final categoryExists = await anyCategoryWithName(category.name);
+      if (!categoryExists) {
+        await categoriesCollection.doc(category.name).get();
+        final doc = categoriesCollection.doc(category.name);
+        await doc.set(category);
+        return doc as CategoryModel;
+      } else {
+        throw CategoryAlreadyExisted();
+      }
     } catch (e) {
       //TODO(yarn): should catch the firebase exception and transformed it into an internal exception
       rethrow;
     }
   }
 
-  Future<Iterable<CategoryReadModel>> getCategories({
+  Future<bool> anyCategoryWithName(String name) async {
+    final doc = await categoriesCollection.doc(name).get();
+    return doc.exists;
+  }
+
+  Future<Iterable<CategoryModel>> getCategories({
     required String query,
     required int skip,
     required int take,
   }) async {
     try {
       final categoriesQuery = categoriesCollection
-          .where('fieldName', isGreaterThanOrEqualTo: query)
+          .where('name', isGreaterThanOrEqualTo: query)
           .where(
-            'fieldName',
+            'name',
             isLessThan: '${query}z',
-          )
-          .startAfter([skip]).limit(take);
+          );
+      // .startAfter([skip]).limit(take);
       return (await categoriesQuery.get()).docs.map(
-            (e) => CategoryReadModel.fromJson(e.data() as Map<String, dynamic>),
+            (e) => e.data(),
           );
     } catch (e) {
       //TODO(yarn): should catch the firebase exception and transformed it into an internal exception

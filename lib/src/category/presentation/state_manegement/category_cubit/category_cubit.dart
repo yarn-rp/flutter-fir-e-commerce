@@ -43,7 +43,7 @@ class CategoryCubit extends Cubit<CategoryState> {
         ),
         (categories) => CategoryState.loaded(
           categories: [
-            ...state.categoriesSafe,
+            if (skip != 0) ...state.categoriesSafe,
             ...categories,
           ],
         ),

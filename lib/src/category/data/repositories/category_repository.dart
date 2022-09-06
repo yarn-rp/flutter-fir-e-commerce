@@ -2,8 +2,7 @@ import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart';
 import 'package:flutter_fir_e_commerce/core/result_type/result_type.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/data_sources/remote_data_source/category_remote_data_source.dart';
-import 'package:flutter_fir_e_commerce/src/category/data/models/category_read_model/category_read_model.dart';
-import 'package:flutter_fir_e_commerce/src/category/data/models/category_write_model/category_write_model.dart';
+import 'package:flutter_fir_e_commerce/src/category/data/models/category_model/category_model.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/repositories/category_repository.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
@@ -26,7 +25,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }) async {
     try {
       await categoryRemoteDataSource.createCategory(
-        category: CategoryWriteModel(
+        category: CategoryModel(
           colorHex: category.colorHex,
           name: category.name,
           imageUrl: category.imageUrl,
@@ -34,6 +33,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       );
       return right(unit);
     } catch (e) {
+      rethrow;
       return left(const UnexpectedFailure());
     }
   }
@@ -59,6 +59,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       );
       return right(categories.map(modelToEntity));
     } catch (e) {
+      rethrow;
       return left(const UnexpectedFailure());
     }
   }
