@@ -4,6 +4,7 @@ import 'package:flutter_fir_e_commerce/core/result_type/result_type.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/data_sources/remote_data_source/category_remote_data_source.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/models/category_model/category_model.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
+import 'package:flutter_fir_e_commerce/src/category/domain/error/category_failures.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/repositories/category_repository.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
 import 'package:fpdart/fpdart.dart';
@@ -88,8 +89,19 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<Result<Unit>> validateCategoryName({required String categoryName}) {
-    // TODO: implement validateCategoryName
-    throw UnimplementedError();
+  Future<Result<Unit>> validateCategoryName({
+    required String categoryName,
+  }) async {
+    try {
+      final isBeingUsed =
+          await categoryRemoteDataSource.anyCategoryWithName(categoryName);
+      if (!isBeingUsed) {
+        return right(unit);
+      } else {
+        return left(const CategoryAlreadyExistsFailure());
+      }
+    } catch (e) {
+      return left(const UnexpectedFailure());
+    }
   }
 }

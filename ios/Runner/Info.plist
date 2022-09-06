@@ -33,6 +33,16 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need to access your camera to create a new profile image</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This application needs access to your contacts in order to provide you with a better experience and a faster and easier flow.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App needs location permission to work</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Need to access your microphone to create a new profile image</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need to access your photos to load your profile image</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

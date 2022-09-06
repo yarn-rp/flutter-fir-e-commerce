@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart';
 import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/state_manegement/category_cubit/category_cubit.dart';
+import 'package:flutter_fir_e_commerce/src/images/presenter/image_selector.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
@@ -33,7 +34,6 @@ class _CategoriesViewState extends State<CategoriesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
       body: BlocBuilder<CategoryCubit, CategoryState>(
         builder: (context, state) {
           if (state is CategoriesLoading) {
@@ -47,6 +47,7 @@ class _CategoriesViewState extends State<CategoriesView> {
           return ListView(
             children: [
               ...state.categoriesSafe.map((e) => Text(e.name)),
+              ImageSelector(),
             ],
           );
         },

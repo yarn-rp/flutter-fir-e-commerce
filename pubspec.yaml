@@ -12,6 +12,7 @@ dependencies:
   cloud_firestore_odm: ^1.0.0-dev.28
   equatable: ^2.0.5
   firebase_core: ^1.21.1
+  firebase_storage: ^10.3.7
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
@@ -28,6 +29,7 @@ dependencies:
   internet_connection_checker: ^0.0.1+4
   intl: ^0.17.0
   json_annotation: ^4.6.0
+  path: ^1.8.1
 
 dev_dependencies:
   bloc_test: ^9.0.3

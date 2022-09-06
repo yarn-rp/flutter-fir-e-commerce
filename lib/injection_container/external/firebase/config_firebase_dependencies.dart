@@ -13,10 +13,7 @@ Future<void> configureFirebaseDependencies(
   Environment? environment,
   EnvironmentFilter? environmentFilter,
 }) async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  $initGetIt(
+  await $initGetIt(
     get,
     environment: environment?.name,
     environmentFilter: environmentFilter,

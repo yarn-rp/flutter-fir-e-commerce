@@ -1,13 +1,32 @@
-class ImageException implements Exception {
-  final String message;
+import 'package:flutter_fir_e_commerce/core/error/failures.dart';
+import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 
-  ImageException(this.message);
+abstract class ImageFailure extends Failure {
+  const ImageFailure({
+    this.message = 'Image Failure',
+  });
+  final String? message;
+
+  @override
+  String toString() => message ?? super.toString();
 }
 
-class ImageUploadException extends ImageException {
-  ImageUploadException(String message) : super(message);
+class ImageUploadFailure extends Failure {
+  const ImageUploadFailure({
+    this.message = 'ImageUploadFailure',
+  });
+  final String? message;
+
+  @override
+  String toString() => message ?? super.toString();
 }
 
-class CouldNotTakeValidUrlException extends ImageException {
-  CouldNotTakeValidUrlException(String message) : super(message);
+class CouldNotTakeValidUrlFailure extends Failure {
+  const CouldNotTakeValidUrlFailure({
+    this.message = 'CouldNotTakeValidUrlException',
+  });
+  final String? message;
+
+  @override
+  String toString() => message ?? super.toString();
 }
