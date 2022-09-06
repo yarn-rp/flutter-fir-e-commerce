@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_buttons/adaptive_button.dart';
+import 'package:go_router/go_router.dart';
 
 class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   const AdaptiveAppBar({
@@ -37,7 +38,8 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
-    final canPop = parentRoute?.canPop ?? false;
+    final canPop = GoRouter.of(context).canPop();
+
     if (forceAndroid || Theme.of(context).platform == TargetPlatform.android) {
       return AppBar(
         centerTitle: centerTitle,
@@ -49,7 +51,7 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
             (canPop
                 ? AdaptiveIconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      GoRouter.of(context).pop();
                     },
                     icon: Icon(
                       Icons.arrow_back,

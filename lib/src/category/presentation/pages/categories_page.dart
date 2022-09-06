@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart';
+import 'package:flutter_fir_e_commerce/core/widgets/dedicated_refresh_scaffold/adaptive_refresh_scaffold.dart';
 import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.dart';
+import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/state_manegement/category_cubit/category_cubit.dart';
-import 'package:flutter_fir_e_commerce/src/images/presenter/image_selector.dart';
+import 'package:flutter_fir_e_commerce/src/category/presentation/widgets/category_card_widget.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
@@ -33,7 +36,22 @@ class _CategoriesViewState extends State<CategoriesView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AdaptiveScaffold(
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).padding.bottom,
+        ),
+        child: FloatingActionButton.extended(
+          backgroundColor: Theme.of(context).cardColor,
+          label: Text(
+            'Create Category',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          onPressed: () {
+            context.go('/categories/create');
+          },
+        ),
+      ),
       body: BlocBuilder<CategoryCubit, CategoryState>(
         builder: (context, state) {
           if (state is CategoriesLoading) {
@@ -46,8 +64,14 @@ class _CategoriesViewState extends State<CategoriesView> {
           }
           return ListView(
             children: [
-              ...state.categoriesSafe.map((e) => Text(e.name)),
-              ImageSelector(),
+              ...state.categoriesSafe.map(
+                (e) => Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: CategoryCardWidget(
+                    category: e,
+                  ),
+                ),
+              ),
             ],
           );
         },

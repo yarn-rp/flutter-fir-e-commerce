@@ -27,7 +27,7 @@ final ThemeData themeDark = ThemeData(
   canvasColor: const Color(0xff121212),
   textTheme: textDarkTheme,
   // textTheme: textTheme,
-  primaryColor: const Color(0xff1D99DD),
+  primaryColor: const Color(0xff67C4A7),
   // tabBarTheme: tabBarThemeLight,
   // platform: TargetPlatform.android,
   sliderTheme: SliderThemeData(

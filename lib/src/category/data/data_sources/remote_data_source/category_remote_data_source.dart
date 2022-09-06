@@ -25,7 +25,7 @@ class CategoryRemoteDataSource {
         await categoriesCollection.doc(category.name).get();
         final doc = categoriesCollection.doc(category.name);
         await doc.set(category);
-        return doc as CategoryModel;
+        return (await doc.get()).data()!;
       } else {
         throw CategoryAlreadyExisted();
       }
