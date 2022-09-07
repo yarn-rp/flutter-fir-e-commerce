@@ -12,6 +12,7 @@ import 'package:flutter_fir_e_commerce/l10n/l10n.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/pages/categories_page.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/pages/create_category_page.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/pages/create_product_page.dart';
+import 'package:flutter_fir_e_commerce/src/product/presentation/pages/product_details.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,12 +29,9 @@ class App extends StatelessWidget {
       routeInformationProvider: _router.routeInformationProvider,
       routeInformationParser: _router.routeInformationParser,
       routerDelegate: _router.routerDelegate,
-      // Define a light and dark color theme. Then, read the user's
-      // preferred ThemeMode (light, dark, or system default) from the
-      // SettingsController to display the correct theme.
       theme: themeLight,
       darkTheme: themeDark,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

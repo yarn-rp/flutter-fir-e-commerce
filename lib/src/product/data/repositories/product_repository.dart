@@ -108,4 +108,20 @@ class ProductRepositoryImpl implements ProductRepository {
           category: value.toEntity,
         ),
       );
+
+  @override
+  Future<Result<Product>> getProductDetails({required String productId}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final product =
+            await productRemoteDataSource.getProductDetails(productId);
+        return right(await _productModelToEntity(product));
+      } on ProductNoExistedException {
+        return left(const ProductNoExistFailure());
+      } catch (e) {
+        return left(const UnexpectedFailure());
+      }
+    }
+    return left(noInternetConnectionFailure);
+  }
 }

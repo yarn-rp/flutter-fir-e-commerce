@@ -29,36 +29,24 @@ class ProductFieldsToEdit {
   final String? imageUrl;
 }
 
-abstract class ProductRepository
-    implements
-        _CreatableProductRepository,
-        _EditableProductRepository,
-        _DeletableProductRepository,
-        _CollectionProductRepository {}
-
-abstract class _CreatableProductRepository {
+abstract class ProductRepository {
   Future<Result<Unit>> createProduct({
     required ProductToCreate product,
   });
-}
-
-abstract class _EditableProductRepository {
   Future<Result<Unit>> editProduct({
     required String productId,
     required ProductFieldsToEdit fields,
   });
-}
-
-abstract class _DeletableProductRepository {
   Future<Result<Unit>> deleteProduct({
     required String productId,
   });
-}
-
-abstract class _CollectionProductRepository {
   Future<Result<Iterable<Product>>> getProduct({
     String query = '',
     int skip = 0,
     int take = 16,
+  });
+
+  Future<Result<Product>> getProductDetails({
+    required String productId,
   });
 }

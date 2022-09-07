@@ -158,6 +158,7 @@ class ProductListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => context.go('/products/${product.id}'),
       leading: SizedBox(
         width: 80,
         child: ClipRRect(

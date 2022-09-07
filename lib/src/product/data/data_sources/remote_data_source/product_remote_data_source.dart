@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_fir_e_commerce/src/product/data/error/product_exceptions.dart';
 import 'package:flutter_fir_e_commerce/src/product/data/models/product_model.dart';
+import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_product_details_usecase.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton
@@ -33,6 +34,21 @@ class ProductRemoteDataSource {
   Future<bool> anyProductWithId(String id) async {
     final doc = await productsCollection.doc(id).get();
     return doc.exists;
+  }
+
+  Future<ProductModel> getProductDetails(String productId) async {
+    try {
+      final productExists = await anyProductWithId(productId);
+
+      if (productExists) {
+        return (await productsCollection.doc(productId).get()).data()!;
+      } else {
+        throw ProductNoExistedException();
+      }
+    } catch (e) {
+      //TODO(yarn): should catch the firebase exception and transformed it into an internal exception
+      rethrow;
+    }
   }
 
   Future<void> deleteProduct({

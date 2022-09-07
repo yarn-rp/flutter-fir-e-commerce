@@ -35,6 +35,16 @@ final GoRouter _router = GoRouter(
             return Container();
           },
         ),
+        GoRoute(
+          path: ':id',
+          builder: (BuildContext context, GoRouterState state) {
+            final productId = state.params['id']!;
+
+            return ProductDetailsPage(
+              productId: productId,
+            );
+          },
+        ),
       ],
       builder: (BuildContext context, GoRouterState state) {
         final screen = state.params['screen']!;

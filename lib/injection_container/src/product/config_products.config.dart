@@ -32,14 +32,18 @@ import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/edit_product
     as _i17;
 import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/favorite_product_streamer.dart'
     as _i5;
-import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_products_use_case.dart'
+import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_product_details_usecase.dart'
     as _i18;
+import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_products_use_case.dart'
+    as _i19;
 import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/remove_product_from_favorites.dart'
     as _i12;
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/create_product_cubit/create_product_cubit.dart'
-    as _i20;
+    as _i22;
+import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/product_details_cubit/product_details_cubit.dart'
+    as _i21;
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/products_cubit/product_cubit.dart'
-    as _i19;
+    as _i20;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart'
     as _i2; // ignore_for_file: unnecessary_lambdas
@@ -71,11 +75,15 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       get<_i8.ProductRepository>(),
       get<_i14.CategoryRepository>(),
       get<_i15.ImageRepository>()));
-  gh.factory<_i18.GetProductsUseCase>(
-      () => _i18.GetProductsUseCase(get<_i8.ProductRepository>()));
-  gh.factory<_i19.ProductCubit>(() => _i19.ProductCubit(
-      get<_i18.GetProductsUseCase>(), get<_i16.DeleteProductUseCase>()));
-  gh.factory<_i20.CreateProductCubit>(
-      () => _i20.CreateProductCubit(get<_i13.CreateProductUseCase>()));
+  gh.factory<_i18.GetProductDetailsUseCase>(
+      () => _i18.GetProductDetailsUseCase(get<_i8.ProductRepository>()));
+  gh.factory<_i19.GetProductsUseCase>(
+      () => _i19.GetProductsUseCase(get<_i8.ProductRepository>()));
+  gh.factory<_i20.ProductCubit>(() => _i20.ProductCubit(
+      get<_i19.GetProductsUseCase>(), get<_i16.DeleteProductUseCase>()));
+  gh.factory<_i21.ProductDetailsCubit>(
+      () => _i21.ProductDetailsCubit(get<_i18.GetProductDetailsUseCase>()));
+  gh.factory<_i22.CreateProductCubit>(
+      () => _i22.CreateProductCubit(get<_i13.CreateProductUseCase>()));
   return get;
 }
