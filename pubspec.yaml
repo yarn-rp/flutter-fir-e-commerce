@@ -10,6 +10,7 @@ dependencies:
   bloc: ^8.0.3
   cloud_firestore: ^3.4.6
   cloud_firestore_odm: ^1.0.0-dev.28
+  cupertino_icons: ^1.0.5
   equatable: ^2.0.5
   firebase_core: ^1.21.1
   firebase_storage: ^10.3.7
@@ -20,6 +21,7 @@ dependencies:
   flutter_image_compress: ^1.1.2
   flutter_localizations:
     sdk: flutter
+  flutter_slidable: ^2.0.0
   fpdart: ^0.2.0
   freezed_annotation: ^2.1.0
   get_it: ^7.2.0
@@ -27,6 +29,7 @@ dependencies:
   hive: ^2.2.3
   image_cropper: ^3.0.0
   image_picker: ^0.8.5+3
+  infinite_carousel: ^1.0.2
   injectable: ^1.5.3
   internet_connection_checker: ^0.0.1+4
   intl: ^0.17.0

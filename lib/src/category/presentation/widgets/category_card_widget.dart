@@ -31,6 +31,7 @@ class CategoryCardWidget extends StatelessWidget {
               child: Text(
                 category.name,
                 style: Theme.of(context).textTheme.headline1?.copyWith(
+                  color: Colors.white,
                   shadows: [
                     const Shadow(
                       offset: Offset.infinite,

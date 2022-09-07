@@ -52,7 +52,7 @@ final ThemeData themeDark = ThemeData(
     ),
   ),
   cupertinoOverrideTheme: const CupertinoThemeData(
-    primaryColor: Color(0xff1D99DD),
+    primaryColor: const Color(0xff67C4A7),
     textTheme: CupertinoTextThemeData(
       primaryColor: Color(0xff3EE78A),
       tabLabelTextStyle: TextStyle(

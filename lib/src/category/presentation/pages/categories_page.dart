@@ -6,6 +6,7 @@ import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.d
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/state_manegement/category_cubit/category_cubit.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/widgets/category_card_widget.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 
 class CategoriesPage extends StatelessWidget {
@@ -27,7 +28,8 @@ class CategoriesView extends StatefulWidget {
   State<CategoriesView> createState() => _CategoriesViewState();
 }
 
-class _CategoriesViewState extends State<CategoriesView> {
+class _CategoriesViewState extends State<CategoriesView>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -67,8 +69,24 @@ class _CategoriesViewState extends State<CategoriesView> {
               ...state.categoriesSafe.map(
                 (e) => Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: CategoryCardWidget(
-                    category: e,
+                  child: Slidable(
+                    // The end action pane is the one at the right or the bottom side.
+                    endActionPane: ActionPane(
+                      motion: StretchMotion(),
+                      children: [
+                        // A SlidableAction can have an icon and/or a label.
+                        SlidableAction(
+                          onPressed: (context) {},
+                          backgroundColor: Theme.of(context).backgroundColor,
+                          foregroundColor: Theme.of(context).errorColor,
+                          icon: Icons.delete,
+                          label: 'Delete',
+                        ),
+                      ],
+                    ),
+                    child: CategoryCardWidget(
+                      category: e,
+                    ),
                   ),
                 ),
               ),
@@ -78,4 +96,7 @@ class _CategoriesViewState extends State<CategoriesView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

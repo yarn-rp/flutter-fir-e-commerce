@@ -45,6 +45,12 @@ class CategoryCubit extends Cubit<CategoryState> {
           categories: [
             if (skip != 0) ...state.categoriesSafe,
             ...categories,
+            ...categories,
+            ...categories,
+            ...categories,
+            ...categories,
+            ...categories,
+            ...categories,
           ],
         ),
       ),

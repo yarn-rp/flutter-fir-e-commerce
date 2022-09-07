@@ -17,6 +17,7 @@ class AdaptiveSearchBar extends StatefulWidget implements PreferredSizeWidget {
     this.bottom,
     this.placeholder,
     this.showBorder = true,
+    this.floating = false,
   }) : super(key: key);
   final void Function(bool show) onFocusChanged;
   final double height;
@@ -27,6 +28,7 @@ class AdaptiveSearchBar extends StatefulWidget implements PreferredSizeWidget {
   final String? placeholder;
   final PreferredSizeWidget? bottom;
   final bool showBorder;
+  final bool floating;
 
   @override
   _AdaptiveSearchBarState createState() => _AdaptiveSearchBarState();

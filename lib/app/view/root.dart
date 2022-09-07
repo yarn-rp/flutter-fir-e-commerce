@@ -1,20 +1,24 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_fir_e_commerce/app/view/home.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_app_bar/adaptive_app_bar.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_app_bar/adaptive_search_bar.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_bottom_tab_bar/dedicated_bottom_tab_bar.dart';
+import 'package:flutter_fir_e_commerce/core/widgets/adaptive_buttons/adaptive_button.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/dedicated_refresh_scaffold/adaptive_refresh_scaffold.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/pages/categories_page.dart';
+import 'package:flutter_fir_e_commerce/src/category/presentation/widgets/categories_carousel_widgets.dart';
 
 enum TabPageEnum {
-  home(icon: Icons.home, label: 'Home'),
+  home(icon: CupertinoIcons.home, label: 'Home'),
   categories(
-    icon: Icons.category,
+    icon: CupertinoIcons.selection_pin_in_out,
     label: 'Categories',
   ),
   products(
-    icon: Icons.shop_two,
+    icon: CupertinoIcons.square_line_vertical_square,
     label: 'Products',
   );
 
@@ -80,7 +84,43 @@ class _RootState extends State<Root> {
         ],
       ),
       appBar: AdaptiveAppBar(
+        height: kToolbarHeight * 2,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Image.network(
+                'https://www.kadencewp.com/wp-content/uploads/2020/10/alogo-1.png',
+                color: Theme.of(context).iconTheme.color,
+              ),
+            ),
+            Row(
+              children: [
+                AdaptiveIconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    CupertinoIcons.heart,
+                    color: Theme.of(context).iconTheme.color,
+                    size: 24,
+                  ),
+                ),
+                AdaptiveIconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    CupertinoIcons.shopping_cart,
+                    color: Theme.of(context).iconTheme.color,
+                    size: 24,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
         bottom: AdaptiveSearchBar(
+          floating: true,
+          showBorder: false,
           controller: TextEditingController(),
           height: kToolbarHeight,
           onChanged: (s) {},
@@ -93,9 +133,7 @@ class _RootState extends State<Root> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          Container(
-              // color: Colors.red,
-              ),
+          HomePage(),
           CategoriesPage(),
           Container(
               // color: Colors.green,
