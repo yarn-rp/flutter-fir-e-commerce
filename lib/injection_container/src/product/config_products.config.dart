@@ -36,6 +36,8 @@ import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_products
     as _i18;
 import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/remove_product_from_favorites.dart'
     as _i12;
+import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/create_product_cubit/create_product_cubit.dart'
+    as _i20;
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/products_cubit/product_cubit.dart'
     as _i19;
 import 'package:get_it/get_it.dart' as _i1;
@@ -73,5 +75,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i18.GetProductsUseCase(get<_i8.ProductRepository>()));
   gh.factory<_i19.ProductCubit>(() => _i19.ProductCubit(
       get<_i18.GetProductsUseCase>(), get<_i16.DeleteProductUseCase>()));
+  gh.factory<_i20.CreateProductCubit>(
+      () => _i20.CreateProductCubit(get<_i13.CreateProductUseCase>()));
   return get;
 }

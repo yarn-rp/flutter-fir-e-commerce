@@ -22,7 +22,7 @@ class ProductRemoteDataSource {
   }) async {
     try {
       final doc = productsCollection.doc();
-      await doc.set(product);
+      await doc.set(product.withId(doc.id));
       return (await doc.get()).data()!;
     } catch (e) {
       //TODO(yarn): should catch the firebase exception and transformed it into an internal exception

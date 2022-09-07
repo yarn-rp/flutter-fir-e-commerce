@@ -30,5 +30,13 @@ class ProductModel {
   final bool isFavorite;
   final String name;
 
+  ProductModel withId(String id) => ProductModel(
+        id: id,
+        name: name,
+        imageUrl: imageUrl,
+        categoryId: categoryId,
+        isFavorite: isFavorite,
+      );
+
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }
