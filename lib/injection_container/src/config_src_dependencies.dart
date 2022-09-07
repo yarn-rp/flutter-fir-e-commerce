@@ -2,20 +2,36 @@ import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.d
 
 import 'package:flutter_fir_e_commerce/injection_container/src/category/config_categories.dart';
 import 'package:flutter_fir_e_commerce/injection_container/src/images/config_images.dart';
+import 'package:flutter_fir_e_commerce/injection_container/src/product/config_products.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+typedef InitFeatureFunction = void Function(
+  GetIt get, {
+  Environment? environment,
+  EnvironmentFilter? environmentFilter,
+});
 Future<void> configureSrcDependencies(
   GetIt get, {
   Environment? environment,
   EnvironmentFilter? environmentFilter,
 }) async {
-  configureCategoriesDependencies(
-    get,
-    environment: environment,
+  final featuresToInit = <InitFeatureFunction>[
+    configureCategoriesDependencies,
+    configureImagesDependencies,
+    configureProductDependencies,
+  ];
+
+  featuresToInit.forEach(
+    (e) => e(get, environment: environment),
   );
-  configureImagesDependencies(
-    get,
-    environment: environment,
-  );
+  // configureCategoriesDependencies(
+  //   get,
+  //   environment: environment,
+  // );
+  // configureImagesDependencies(
+  //   get,
+  //   environment: environment,
+  // );
+  // configureProductDependencies(get, environment: environment);
 }

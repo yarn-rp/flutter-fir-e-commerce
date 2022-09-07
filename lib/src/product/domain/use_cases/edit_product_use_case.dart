@@ -9,7 +9,9 @@ import 'package:flutter_fir_e_commerce/src/category/domain/repositories/category
 import 'package:flutter_fir_e_commerce/src/images/repository/image_repository.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/repositories/product_repository.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class EditProductUseCase extends UseCase<Unit, EditProductParams> {
   EditProductUseCase(
     this._repository,
@@ -19,7 +21,7 @@ class EditProductUseCase extends UseCase<Unit, EditProductParams> {
 
   final CategoryRepository _categoryRepository;
   final ImageRepository _imageRepository;
-  final EditableProductRepository _repository;
+  final ProductRepository _repository;
 
   @override
   Future<Result<Unit>> call(EditProductParams params) async {

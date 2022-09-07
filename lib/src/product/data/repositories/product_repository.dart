@@ -14,16 +14,8 @@ import 'package:fpdart/fpdart.dart';
 import 'package:fpdart/src/unit.dart';
 import 'package:injectable/injectable.dart';
 
-@Singleton(as: CreatableProductRepository)
-@Singleton(as: EditableProductRepository)
-@Singleton(as: DeletableProductRepository)
-@Singleton(as: CollectionProductRepository)
-class ProductRepositoryImpl
-    implements
-        CreatableProductRepository,
-        EditableProductRepository,
-        DeletableProductRepository,
-        CollectionProductRepository {
+@Singleton(as: ProductRepository)
+class ProductRepositoryImpl implements ProductRepository {
   ProductRepositoryImpl(
     this.networkInfo,
     this.productRemoteDataSource,
@@ -99,6 +91,7 @@ class ProductRepositoryImpl
         );
         return right(await Future.wait(products.map(_productModelToEntity)));
       } catch (e) {
+        rethrow;
         return left(const UnexpectedFailure());
       }
     }

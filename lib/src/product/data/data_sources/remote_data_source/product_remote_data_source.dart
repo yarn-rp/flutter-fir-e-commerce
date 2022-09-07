@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_fir_e_commerce/src/product/data/error/product_exceptions.dart';
 import 'package:flutter_fir_e_commerce/src/product/data/models/product_model.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class ProductRemoteDataSource {
   ProductRemoteDataSource(FirebaseFirestore firestore)
       : _firestore = firestore,

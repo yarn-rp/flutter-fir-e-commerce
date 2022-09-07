@@ -10,6 +10,7 @@ import 'package:flutter_fir_e_commerce/core/widgets/adaptive_buttons/adaptive_bu
 import 'package:flutter_fir_e_commerce/core/widgets/dedicated_refresh_scaffold/adaptive_refresh_scaffold.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/pages/categories_page.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/widgets/categories_carousel_widgets.dart';
+import 'package:flutter_fir_e_commerce/src/product/presentation/pages/product_page.dart';
 
 enum TabPageEnum {
   home(icon: CupertinoIcons.home, label: 'Home'),
@@ -132,12 +133,10 @@ class _RootState extends State<Root> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: [
+        children: const [
           HomePage(),
           CategoriesPage(),
-          Container(
-              // color: Colors.green,
-              ),
+          ProductsPage(),
         ],
       ),
     );
