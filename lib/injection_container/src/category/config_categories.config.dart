@@ -24,6 +24,8 @@ import 'package:flutter_fir_e_commerce/src/category/domain/use_cases/get_categor
     as _i12;
 import 'package:flutter_fir_e_commerce/src/category/presentation/state_manegement/category_cubit/category_cubit.dart'
     as _i13;
+import 'package:flutter_fir_e_commerce/src/category/presentation/state_manegement/creeate_category_cubit/create_category_cubit.dart'
+    as _i14;
 import 'package:flutter_fir_e_commerce/src/images/repository/image_repository.dart'
     as _i9;
 import 'package:get_it/get_it.dart' as _i1;
@@ -49,5 +51,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i12.GetCategoriesUseCase(get<_i5.CategoryRepository>()));
   gh.factory<_i13.CategoryCubit>(
       () => _i13.CategoryCubit(get<_i12.GetCategoriesUseCase>()));
+  gh.factory<_i14.CreateCategoryCubit>(
+      () => _i14.CreateCategoryCubit(get<_i8.CreateCategoryUseCase>()));
   return get;
 }

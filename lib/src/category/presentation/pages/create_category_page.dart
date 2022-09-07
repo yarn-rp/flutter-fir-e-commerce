@@ -1,15 +1,19 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_app_bar/adaptive_app_bar.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_buttons/adaptive_button.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/dedicated_refresh_scaffold/adaptive_refresh_scaffold.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/dialogs/adaptive_snackar.dart';
+import 'package:flutter_fir_e_commerce/core/widgets/dialogs/processing.dart';
 import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/use_cases/create_category_use_case.dart';
+import 'package:flutter_fir_e_commerce/src/category/presentation/state_manegement/creeate_category_cubit/create_category_cubit.dart';
 import 'package:flutter_fir_e_commerce/src/images/presenter/get_image.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,7 +23,7 @@ class CreateCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CreateCategoryView();
+    return const CreateCategoryView();
   }
 }
 
@@ -71,6 +75,54 @@ class _CreateCategoryViewState extends State<CreateCategoryView> {
                   ),
                 );
               } else {
+                showGeneralDialog(
+                  context: context,
+                  pageBuilder: (context, animation1, animation2) {
+                    return BlocProvider(
+                      create: (context) => sl<CreateCategoryCubit>(),
+                      child: ProcessingWidget<void>(
+                        action: (context) =>
+                            context.read<CreateCategoryCubit>().createCategory(
+                                  name: name,
+                                  imageFile: imgFile!,
+                                  color: color,
+                                ),
+                        onResult: (context, _) async {
+                          final state =
+                              context.read<CreateCategoryCubit>().state;
+                          state
+                              .maybeWhen<VoidCallback>(
+                                orElse: () => () {},
+                                success: () => () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    getAdaptiveSnackbar(
+                                      backgroundColor: Theme.of(context)
+                                          .primaryColor
+                                          .withOpacity(0.8),
+                                      context: context,
+                                      content: const Text('Category created'),
+                                    ),
+                                  );
+                                  Navigator.pop(context);
+                                },
+                                error: (error) => () =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      getAdaptiveSnackbar(
+                                        backgroundColor: Theme.of(context)
+                                            .errorColor
+                                            .withOpacity(0.8),
+                                        context: context,
+                                        content: Text(
+                                            'Error creating category $error'),
+                                      ),
+                                    ),
+                              )
+                              .call();
+                        },
+                      ),
+                    );
+                  },
+                );
                 sl<CreateCategoryUseCase>()(
                   CreateCategoryParams(
                     name: name,
