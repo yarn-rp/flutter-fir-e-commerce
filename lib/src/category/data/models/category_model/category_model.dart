@@ -17,8 +17,11 @@ class CategoryModel {
   // We wanted to make the category name unique, so we match it to the ID
   : id = id ?? name;
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) =>
-      _$CategoryModelFromJson(json);
+  factory CategoryModel.fromEntity(Category entity) => CategoryModel(
+        colorHex: entity.color.toHex(),
+        name: entity.name,
+        imageUrl: entity.imageUrl,
+      );
 
   factory CategoryModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -27,6 +30,10 @@ class CategoryModel {
     final data = snapshot.data() ?? <String, dynamic>{};
     return CategoryModel.fromJson(data);
   }
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) =>
+      _$CategoryModelFromJson(json);
+
   @JsonKey(name: 'color')
   final String colorHex;
 
@@ -35,12 +42,12 @@ class CategoryModel {
   final String name;
 
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
-}
 
-Category modelToEntity(CategoryModel categoryReadModel) => Category(
-      color: HexColor.fromHex(categoryReadModel.colorHex)!,
-      id: categoryReadModel.id,
-      name: categoryReadModel.name,
-      imageUrl: categoryReadModel.imageUrl,
-      slug: categoryReadModel.name,
-    );
+  Category get toEntity => Category(
+        color: HexColor.fromHex(colorHex)!,
+        id: id,
+        name: name,
+        imageUrl: imageUrl,
+        slug: name,
+      );
+}

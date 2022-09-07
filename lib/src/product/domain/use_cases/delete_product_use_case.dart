@@ -3,18 +3,18 @@ import 'package:flutter_fir_e_commerce/core/use_case/use_case.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/repositories/product_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
-class RemoveProductUseCase extends UseCase<Unit, RemoveProductParams> {
-  RemoveProductUseCase(this._repository);
+class DeleteProductUseCase extends UseCase<Unit, DeleteProductParams> {
+  DeleteProductUseCase(this._repository);
 
-  final RemovableProductRepository _repository;
+  final DeletableProductRepository _repository;
 
   @override
-  Future<Result<Unit>> call(RemoveProductParams params) =>
-      _repository.removeProduct(productId: params.id);
+  Future<Result<Unit>> call(DeleteProductParams params) =>
+      _repository.deleteProduct(productId: params.id);
 }
 
-class RemoveProductParams {
-  RemoveProductParams({
+class DeleteProductParams {
+  DeleteProductParams({
     required this.id,
   });
 

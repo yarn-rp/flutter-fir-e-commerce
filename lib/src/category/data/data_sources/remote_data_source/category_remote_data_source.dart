@@ -64,6 +64,14 @@ class CategoryRemoteDataSource {
     return doc.exists;
   }
 
+  Future<CategoryModel> getCategoryWithId(String id) =>
+      (categoriesCollection.doc(id).get()).then((value) {
+        if (value.exists) {
+          return value.data()!;
+        }
+        throw CategoryNoExistedException();
+      });
+
   Future<Iterable<CategoryModel>> getCategories({
     required String query,
     required int skip,

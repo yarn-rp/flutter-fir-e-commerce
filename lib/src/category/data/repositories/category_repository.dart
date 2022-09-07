@@ -27,31 +27,36 @@ class CategoryRepositoryImpl implements CategoryRepository {
   Future<Result<Unit>> createCategory({
     required CategoryToCreate category,
   }) async {
-    try {
-      await categoryRemoteDataSource.createCategory(
-        category: CategoryModel(
-          colorHex: category.colorHex,
-          name: category.name,
-          imageUrl: category.imageUrl,
-        ),
-      );
-      return right(unit);
-    } catch (e) {
-      rethrow;
-      return left(const UnexpectedFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        await categoryRemoteDataSource.createCategory(
+          category: CategoryModel(
+            colorHex: category.colorHex,
+            name: category.name,
+            imageUrl: category.imageUrl,
+          ),
+        );
+        return right(unit);
+      } catch (e) {
+        return left(const UnexpectedFailure());
+      }
     }
+    return left(noInternetConnectionFailure);
   }
 
   @override
   Future<Result<Unit>> deleteCategory({required String categoryId}) async {
-    try {
-      await categoryRemoteDataSource.deleteCategory(categoryId: categoryId);
-      return right(unit);
-    } on CategoryNoExistedException {
-      return left(const CategoryNoExistFailure());
-    } catch (e) {
-      return left(const UnexpectedFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        await categoryRemoteDataSource.deleteCategory(categoryId: categoryId);
+        return right(unit);
+      } on CategoryNoExistedException {
+        return left(const CategoryNoExistFailure());
+      } catch (e) {
+        return left(const UnexpectedFailure());
+      }
     }
+    return left(noInternetConnectionFailure);
   }
 
   @override
@@ -67,23 +72,37 @@ class CategoryRepositoryImpl implements CategoryRepository {
     int skip = 0,
     int take = 16,
   }) async {
-    try {
-      final categories = await categoryRemoteDataSource.getCategories(
-        skip: skip,
-        take: take,
-        query: query,
-      );
-      return right(categories.map(modelToEntity));
-    } catch (e) {
-      rethrow;
-      return left(const UnexpectedFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        final categories = await categoryRemoteDataSource.getCategories(
+          skip: skip,
+          take: take,
+          query: query,
+        );
+        return right(categories.map((e) => e.toEntity));
+      } catch (e) {
+        return left(const UnexpectedFailure());
+      }
     }
+    return left(noInternetConnectionFailure);
   }
 
   @override
-  Future<Result<Category>> getCategoryDetails({required String categorySlug}) {
-    // TODO: implement getCategoryDetails
-    throw UnimplementedError();
+  Future<Result<Category>> getCategoryDetails({
+    required String categorySlug,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+        return right(
+          await categoryRemoteDataSource.getCategoryWithId(categorySlug).then(
+                (value) => value.toEntity,
+              ),
+        );
+      } catch (e) {
+        return left(const UnexpectedFailure());
+      }
+    }
+    return left(noInternetConnectionFailure);
   }
 
   @override
@@ -101,16 +120,19 @@ class CategoryRepositoryImpl implements CategoryRepository {
   Future<Result<Unit>> validateCategoryName({
     required String categoryName,
   }) async {
-    try {
-      final isBeingUsed =
-          await categoryRemoteDataSource.anyCategoryWithName(categoryName);
-      if (!isBeingUsed) {
-        return right(unit);
-      } else {
-        return left(const CategoryAlreadyExistsFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        final isBeingUsed =
+            await categoryRemoteDataSource.anyCategoryWithName(categoryName);
+        if (!isBeingUsed) {
+          return right(unit);
+        } else {
+          return left(const CategoryAlreadyExistsFailure());
+        }
+      } catch (e) {
+        return left(const UnexpectedFailure());
       }
-    } catch (e) {
-      return left(const UnexpectedFailure());
     }
+    return left(noInternetConnectionFailure);
   }
 }

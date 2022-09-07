@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 const String _kUnexpectedError = 'Sucedió algo inesperado';
+const noInternetConnectionFailure = NoInternetConnectionFailure();
 
 abstract class Failure with EquatableMixin {
   const Failure({this.properties});

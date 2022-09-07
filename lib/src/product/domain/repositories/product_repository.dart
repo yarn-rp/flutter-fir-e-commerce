@@ -42,8 +42,8 @@ abstract class EditableProductRepository {
   });
 }
 
-abstract class RemovableProductRepository {
-  Future<Result<Unit>> removeProduct({
+abstract class DeletableProductRepository {
+  Future<Result<Unit>> deleteProduct({
     required String productId,
   });
 }
