@@ -87,13 +87,15 @@ class _CreateCategoryViewState extends State<CreateCategoryView> {
                                   imageFile: imgFile!,
                                   color: color,
                                 ),
-                        onResult: (context, _) async {
+                        onResult: (innerContext, _) async {
                           final state =
-                              context.read<CreateCategoryCubit>().state;
+                              innerContext.read<CreateCategoryCubit>().state;
                           state
                               .maybeWhen<VoidCallback>(
                                 orElse: () => () {},
                                 success: () => () {
+                                  Navigator.popUntil(
+                                      innerContext, (r) => r.isFirst);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     getAdaptiveSnackbar(
                                       backgroundColor: Theme.of(context)
@@ -103,54 +105,24 @@ class _CreateCategoryViewState extends State<CreateCategoryView> {
                                       content: const Text('Category created'),
                                     ),
                                   );
-                                  Navigator.pop(context);
                                 },
-                                error: (error) => () =>
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      getAdaptiveSnackbar(
-                                        backgroundColor: Theme.of(context)
-                                            .errorColor
-                                            .withOpacity(0.8),
-                                        context: context,
-                                        content: Text(
-                                            'Error creating category $error'),
-                                      ),
+                                error: (error) => () {
+                                  Navigator.pop(innerContext);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    getAdaptiveSnackbar(
+                                      backgroundColor: Theme.of(context)
+                                          .errorColor
+                                          .withOpacity(0.8),
+                                      context: context,
+                                      content: Text(
+                                          'Error creating category $error'),
                                     ),
+                                  );
+                                },
                               )
                               .call();
                         },
                       ),
-                    );
-                  },
-                );
-                sl<CreateCategoryUseCase>()(
-                  CreateCategoryParams(
-                    name: name,
-                    imageFile: imgFile!,
-                    color: color,
-                  ),
-                ).then(
-                  (value) {
-                    value.match(
-                      (l) => ScaffoldMessenger.of(context).showSnackBar(
-                        getAdaptiveSnackbar(
-                          backgroundColor:
-                              Theme.of(context).errorColor.withOpacity(0.8),
-                          context: context,
-                          content: Text('Error creating category $l'),
-                        ),
-                      ),
-                      (r) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          getAdaptiveSnackbar(
-                            backgroundColor:
-                                Theme.of(context).primaryColor.withOpacity(0.8),
-                            context: context,
-                            content: const Text('Category created'),
-                          ),
-                        );
-                        Navigator.pop(context);
-                      },
                     );
                   },
                 );
@@ -172,7 +144,10 @@ class _CreateCategoryViewState extends State<CreateCategoryView> {
                   fit: StackFit.expand,
                   children: [
                     if (imgFile != null) ...[
-                      Image.file(imgFile!),
+                      Image.file(
+                        imgFile!,
+                        fit: BoxFit.cover,
+                      ),
                     ],
                     ColoredBox(
                       color: color.withOpacity(0.4),

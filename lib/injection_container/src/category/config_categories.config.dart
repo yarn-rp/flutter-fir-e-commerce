@@ -49,8 +49,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       get<_i5.CategoryRepository>(), get<_i9.ImageRepository>()));
   gh.factory<_i12.GetCategoriesUseCase>(
       () => _i12.GetCategoriesUseCase(get<_i5.CategoryRepository>()));
-  gh.factory<_i13.CategoryCubit>(
-      () => _i13.CategoryCubit(get<_i12.GetCategoriesUseCase>()));
+  gh.factory<_i13.CategoryCubit>(() => _i13.CategoryCubit(
+      get<_i12.GetCategoriesUseCase>(), get<_i10.DeleteCategoryUseCase>()));
   gh.factory<_i14.CreateCategoryCubit>(
       () => _i14.CreateCategoryCubit(get<_i8.CreateCategoryUseCase>()));
   return get;

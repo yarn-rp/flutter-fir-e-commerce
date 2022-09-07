@@ -34,7 +34,7 @@ abstract class CategoryRepository {
     required CategoryFieldsToEdit fields,
   });
 
-  Future<Result<Unit>> removeCategory({
+  Future<Result<Unit>> deleteCategory({
     required String categoryId,
   });
 }

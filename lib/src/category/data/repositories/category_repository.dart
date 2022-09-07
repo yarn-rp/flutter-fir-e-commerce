@@ -1,7 +1,9 @@
+import 'package:flutter_fir_e_commerce/core/error/exceptions.dart';
 import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart';
 import 'package:flutter_fir_e_commerce/core/result_type/result_type.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/data_sources/remote_data_source/category_remote_data_source.dart';
+import 'package:flutter_fir_e_commerce/src/category/data/error/category_exceptions.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/models/category_model/category_model.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/error/category_failures.dart';
@@ -18,8 +20,9 @@ class CategoryRepositoryImpl implements CategoryRepository {
     this.categoryRemoteDataSource,
   );
 
-  final NetworkInfo networkInfo;
   final CategoryRemoteDataSource categoryRemoteDataSource;
+  final NetworkInfo networkInfo;
+
   @override
   Future<Result<Unit>> createCategory({
     required CategoryToCreate category,
@@ -35,6 +38,18 @@ class CategoryRepositoryImpl implements CategoryRepository {
       return right(unit);
     } catch (e) {
       rethrow;
+      return left(const UnexpectedFailure());
+    }
+  }
+
+  @override
+  Future<Result<Unit>> deleteCategory({required String categoryId}) async {
+    try {
+      await categoryRemoteDataSource.deleteCategory(categoryId: categoryId);
+      return right(unit);
+    } on CategoryNoExistedException {
+      return left(const CategoryNoExistFailure());
+    } catch (e) {
       return left(const UnexpectedFailure());
     }
   }
@@ -79,12 +94,6 @@ class CategoryRepositoryImpl implements CategoryRepository {
     int take = 16,
   }) {
     // TODO: implement getProductsFromCategory
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Result<Unit>> removeCategory({required String categoryId}) {
-    // TODO: implement removeCategory
     throw UnimplementedError();
   }
 

@@ -12,7 +12,7 @@ class DeleteCategoryUseCase extends UseCase<Unit, DeleteCategoryParams> {
 
   @override
   Future<Result<Unit>> call(DeleteCategoryParams params) =>
-      _repository.removeCategory(categoryId: params.id);
+      _repository.deleteCategory(categoryId: params.id);
 }
 
 class DeleteCategoryParams {

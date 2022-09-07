@@ -1,3 +1,5 @@
 class CategoryException implements Exception {}
 
-class CategoryAlreadyExisted implements CategoryException {}
+class CategoryAlreadyExistedException implements CategoryException {}
+
+class CategoryNoExistedException implements CategoryException {}

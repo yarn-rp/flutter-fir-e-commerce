@@ -13,7 +13,7 @@ SnackBar getAdaptiveSnackbar({
 }) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
   final _child = Container(
-    alignment: Alignment.centerLeft,
+    // alignment: Alignment.centerLeft,
     decoration: BoxDecoration(
       color: backgroundColor ??
           (Theme.of(context).brightness == Brightness.light
@@ -31,17 +31,16 @@ SnackBar getAdaptiveSnackbar({
   final _height = height ?? kToolbarHeight;
 
   final _backgroundWidget = Container(
-    constraints:
-        BoxConstraints(minHeight: _height + 16, maxHeight: _height + 16),
     padding: const EdgeInsets.all(8.0),
     child: ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(8)),
       child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 18,
-            sigmaY: 18,
-          ),
-          child: _child),
+        filter: ImageFilter.blur(
+          sigmaX: 18,
+          sigmaY: 18,
+        ),
+        child: _child,
+      ),
     ),
   );
 
@@ -51,5 +50,7 @@ SnackBar getAdaptiveSnackbar({
       duration: duration ?? const Duration(seconds: 5),
       elevation: 0,
       behavior: SnackBarBehavior.floating,
-      content: Container(child: _backgroundWidget));
+      content: Container(
+        child: _backgroundWidget,
+      ));
 }

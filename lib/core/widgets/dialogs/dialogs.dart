@@ -34,8 +34,8 @@ class Dialoger {
             ),
           ),
           actions: [
-            Action(name: declineText ?? 'Cancelar'),
-            Action(name: acceptText ?? 'Aceptar', isDefault: true),
+            Action(name: declineText ?? 'Cancel'),
+            Action(name: acceptText ?? 'Accept', isDefault: true),
           ]);
 
   static Future<T?> showErrorDialog<T>({

@@ -49,7 +49,6 @@ Future<File?> compressFile(File file) async {
 FutureOr<File?> cropImage(File imageFile) async {
   final croppedFile = await ImageCropper().cropImage(
     sourcePath: imageFile.path,
-    aspectRatio: const CropAspectRatio(ratioX: 16, ratioY: 9),
   );
   if (croppedFile != null) {
     return File(croppedFile.path);

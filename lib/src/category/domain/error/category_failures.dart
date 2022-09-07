@@ -17,3 +17,13 @@ class CategoryAlreadyExistsFailure extends Failure {
   @override
   String toString() => message ?? super.toString();
 }
+
+class CategoryNoExistFailure extends Failure {
+  const CategoryNoExistFailure({
+    this.message = 'Category is not registered in DB',
+  });
+  final String? message;
+
+  @override
+  String toString() => message ?? super.toString();
+}
