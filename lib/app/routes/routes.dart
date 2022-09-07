@@ -29,6 +29,9 @@ final GoRouter _router = GoRouter(
             if (initialPage == TabPageEnum.categories) {
               return const CreateCategoryPage();
             }
+            if (initialPage == TabPageEnum.products) {
+              return const CreateProductPage();
+            }
             return Container();
           },
         ),

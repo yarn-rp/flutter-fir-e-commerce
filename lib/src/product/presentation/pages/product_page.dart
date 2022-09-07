@@ -116,7 +116,7 @@ class _ProductsViewState extends State<ProductsView>
                                 context: innerContext,
                                 title: 'Are you sure?',
                                 description:
-                                    'Deleting this category is an irreversible action',
+                                    'Deleting this product is an irreversible action',
                               );
                               log('EL result es $result');
                               if (result == 'Accept') {

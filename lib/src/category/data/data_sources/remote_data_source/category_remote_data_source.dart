@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/error/category_exceptions.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/models/category_model/category_model.dart';
+import 'package:flutter_fir_e_commerce/src/product/data/models/product_model.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton
@@ -13,9 +14,17 @@ class CategoryRemoteDataSource {
             firestore.collection('category').withConverter<CategoryModel>(
                   fromFirestore: CategoryModel.fromFirestore,
                   toFirestore: (c, options) => c.toJson(),
+                ),
+        productsCollection =
+            firestore.collection('product').withConverter<ProductModel>(
+                  fromFirestore: ProductModel.fromFirestore,
+                  toFirestore: (c, options) => c.toJson(),
                 );
 
+  late final CollectionReference<ProductModel> productsCollection;
+
   late final CollectionReference<CategoryModel> categoriesCollection;
+
   late final FirebaseFirestore _firestore;
 
   Future<CategoryModel> createCategory({
@@ -45,10 +54,31 @@ class CategoryRemoteDataSource {
       log('Ctegory with name${categoryId} exists? $categoryExists');
       if (categoryExists) {
         await categoriesCollection.doc(categoryId).get();
-        final doc = categoriesCollection.doc(categoryId);
-        return _firestore.runTransaction(
-          //TODO: add remove all products with categoryID = to category
-          (transaction) => doc.delete(),
+        final categoryToDelete = categoriesCollection.doc(categoryId);
+
+        await _firestore.runTransaction(
+          (transaction) async {
+            final docsToRemove = (await productsCollection
+                    .where('categoryId', isEqualTo: categoryId)
+                    .get())
+                .docs
+                .map((e) => e.reference);
+            return Future.wait(docsToRemove.map(transaction.get))
+                .then(
+                  (value) => value
+                      .map(
+                        (e) => e.reference,
+                      )
+                      .forEach(
+                        transaction.delete,
+                      ),
+                )
+                .then(
+                  (value) => transaction.delete(categoryToDelete),
+                );
+          },
+        ).then(
+          (value) => print('TRANSACTION SUCCESSFULLL'),
         );
       } else {
         throw CategoryNoExistedException();

@@ -53,6 +53,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       } on CategoryNoExistedException {
         return left(const CategoryNoExistFailure());
       } catch (e) {
+        rethrow;
         return left(const UnexpectedFailure());
       }
     }

@@ -34,7 +34,7 @@ class ProductCubit extends Cubit<ProductState> {
     );
 
     final deletedOrFailure =
-        await _deleteProductUseCase(DeleteProductParams(id: category.name));
+        await _deleteProductUseCase(DeleteProductParams(id: category.id));
 
     emit(
       deletedOrFailure.fold(

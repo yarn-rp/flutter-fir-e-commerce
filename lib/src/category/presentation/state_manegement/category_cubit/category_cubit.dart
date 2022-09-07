@@ -30,7 +30,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     );
 
     final deletedOrFailure =
-        await _deleteCategoryUseCase(DeleteCategoryParams(id: category.name));
+        await _deleteCategoryUseCase(DeleteCategoryParams(id: category.id));
 
     emit(
       deletedOrFailure.fold(
