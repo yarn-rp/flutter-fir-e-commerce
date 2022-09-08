@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_fir_e_commerce/src/product/data/error/product_exceptions.dart';
 import 'package:flutter_fir_e_commerce/src/product/data/models/product_model.dart';
@@ -36,6 +38,13 @@ class ProductRemoteDataSource {
     return doc.exists;
   }
 
+  Stream<Iterable<ProductModel>> get favoriteProductsStream =>
+      productsCollection.where('isFavorite', isEqualTo: true).snapshots().map(
+            (event) => event.docs.map(
+              (e) => e.data(),
+            ),
+          );
+
   Future<ProductModel> getProductDetails(String productId) async {
     try {
       final productExists = await anyProductWithId(productId);
@@ -50,6 +59,12 @@ class ProductRemoteDataSource {
       rethrow;
     }
   }
+
+  Future<void> addProductToFavorites(String productId) =>
+      _setProductIsFavorite(productId, true);
+
+  Future<void> removeProductFromFavorites(String productId) =>
+      _setProductIsFavorite(productId, false);
 
   Future<void> deleteProduct({
     required String productId,
@@ -87,6 +102,21 @@ class ProductRemoteDataSource {
       return (await productsQuery.get()).docs.map(
             (e) => e.data(),
           );
+    } catch (e) {
+      //TODO(yarn): should catch the firebase exception and transformed it into an internal exception
+      rethrow;
+    }
+  }
+
+  Future<void> _setProductIsFavorite(String productId, bool value) async {
+    try {
+      final productExists = await anyProductWithId(productId);
+      log('Putting product favorite in ${value}');
+      if (productExists) {
+        return productsCollection.doc(productId).update({'isFavorite': value});
+      } else {
+        throw ProductNoExistedException();
+      }
     } catch (e) {
       //TODO(yarn): should catch the firebase exception and transformed it into an internal exception
       rethrow;

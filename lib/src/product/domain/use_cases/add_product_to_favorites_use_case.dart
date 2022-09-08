@@ -1,6 +1,7 @@
 import 'package:flutter_fir_e_commerce/core/result_type/result_type.dart';
 import 'package:flutter_fir_e_commerce/core/use_case/use_case.dart';
-import 'package:flutter_fir_e_commerce/src/product/domain/repositories/favorites_repository.dart';
+
+import 'package:flutter_fir_e_commerce/src/product/domain/repositories/product_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,7 +10,7 @@ class AddProductToFavoritesUseCase
     extends UseCase<Unit, AddProductToFavoritesParams> {
   AddProductToFavoritesUseCase(this._repository);
 
-  final FavoritesRepository _repository;
+  final ProductRepository _repository;
 
   @override
   Future<Result<Unit>> call(AddProductToFavoritesParams params) =>

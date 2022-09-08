@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_fir_e_commerce/core/widgets/dedicated_refresh_scaffold/a
 import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/pages/categories_page.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/pages/product_page.dart';
+import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/favorite_products_cubit/favorite_products_cubit.dart';
 import 'package:flutter_fir_e_commerce/src/search/presentation/pages/search_page.dart';
 import 'package:flutter_fir_e_commerce/src/search/presentation/state_management/search_cubit/search_cubit.dart';
 
@@ -145,13 +147,24 @@ class _RootViewState extends State<RootView> {
             ),
             Row(
               children: [
-                AdaptiveIconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    CupertinoIcons.heart,
-                    color: Theme.of(context).iconTheme.color,
-                    size: 24,
-                  ),
+                BlocBuilder<FavoriteProductsCubit, FavoriteProductsState>(
+                  builder: (context, state) {
+                    return AdaptiveIconButton(
+                      onPressed: () {},
+                      icon: Badge(
+                        badgeColor: Theme.of(context).primaryColor,
+                        animationType: BadgeAnimationType.scale,
+                        badgeContent: Text(
+                          state.productsSafe.length.toString(),
+                        ),
+                        child: Icon(
+                          CupertinoIcons.heart,
+                          color: Theme.of(context).iconTheme.color,
+                          size: 24,
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 AdaptiveIconButton(
                   onPressed: () {},

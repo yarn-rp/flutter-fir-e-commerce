@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 import 'package:flutter_fir_e_commerce/core/use_case/pagination_params.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dar
 
 import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/delete_product_use_case.dart';
+import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_favorite_products_use_case.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_products_use_case.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -17,12 +20,24 @@ class ProductCubit extends Cubit<ProductState> {
   ProductCubit(
     this._getProductsUseCase,
     this._deleteProductUseCase,
+    GetFavoriteProductsUseCase getFavoriteProductsUseCase,
   ) : super(
           const ProductState.initial(),
-        );
+        ) {
+    onFavoritesSubscription =
+        getFavoriteProductsUseCase().listen(_onFavoriteProductsChanges);
+  }
 
-  final GetProductsUseCase _getProductsUseCase;
+  late StreamSubscription onFavoritesSubscription;
+
   final DeleteProductUseCase _deleteProductUseCase;
+  final GetProductsUseCase _getProductsUseCase;
+
+  @override
+  Future<void> close() {
+    onFavoritesSubscription.cancel();
+    return super.close();
+  }
 
   Future<void> deleteProduct(Product category) async {
     final currentList = [...state.productsSafe];
@@ -77,6 +92,35 @@ class ProductCubit extends Cubit<ProductState> {
             if (skip != 0) ...state.productsSafe,
             ...products,
           ],
+        ),
+      ),
+    );
+  }
+
+  Product _updateProductOnFavoriteProductChanges(
+    Iterable<Product> favoritesProducts,
+    Product product,
+  ) {
+    final newValue = favoritesProducts.any((p) => p.id == product.id);
+    return product.copyWith(isFavorite: newValue);
+  }
+
+  void _onFavoriteProductsChanges(Iterable<Product> favoritesProducts) {
+    final productsUpdated = state.productsSafe.map(
+        (e) => _updateProductOnFavoriteProductChanges(favoritesProducts, e));
+
+    emit(
+      state.map(
+        initial: (_) => const ProductState.initial(),
+        loading: (s) => ProductState.loading(
+          products: productsUpdated,
+        ),
+        loaded: (s) => ProductState.loaded(
+          products: productsUpdated,
+        ),
+        error: (s) => ProductState.error(
+          failure: s.failure,
+          products: productsUpdated,
         ),
       ),
     );

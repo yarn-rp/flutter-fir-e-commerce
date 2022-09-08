@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart';
 import 'package:flutter_fir_e_commerce/core/result_type/result_type.dart';
@@ -20,11 +22,39 @@ class ProductRepositoryImpl implements ProductRepository {
     this.networkInfo,
     this.productRemoteDataSource,
     this.categoryRemoteDataSource,
-  );
+  ) : _favoritesController = StreamController<Iterable<Product>>.broadcast() {
+    productRemoteDataSource.favoriteProductsStream
+        .map(
+          (favoritesProductModels) => Future.wait(
+            favoritesProductModels.map(_productModelToEntity),
+          ),
+        )
+        .forEach(
+          (resolveFavoriteProductEntityList) =>
+              resolveFavoriteProductEntityList.then(_favoritesController.add),
+        );
+  }
 
   final CategoryRemoteDataSource categoryRemoteDataSource;
   final NetworkInfo networkInfo;
   final ProductRemoteDataSource productRemoteDataSource;
+
+  final StreamController<Iterable<Product>> _favoritesController;
+
+  @override
+  Future<Result<Unit>> addToFavorites({required String productId}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await productRemoteDataSource.addProductToFavorites(productId);
+        return right(unit);
+      } on ProductNoExistedException {
+        return left(const ProductNoExistFailure());
+      } catch (e) {
+        return left(const UnexpectedFailure());
+      }
+    }
+    return left(noInternetConnectionFailure);
+  }
 
   @override
   Future<Result<Unit>> createProduct({required ProductToCreate product}) async {
@@ -98,17 +128,6 @@ class ProductRepositoryImpl implements ProductRepository {
     return left(noInternetConnectionFailure);
   }
 
-  Future<Product> _productModelToEntity(ProductModel product) =>
-      (categoryRemoteDataSource.getCategoryWithId(product.categoryId)).then(
-        (value) => Product(
-          id: product.id!,
-          name: product.name,
-          imageUrl: product.imageUrl,
-          isFavorite: product.isFavorite,
-          category: value.toEntity,
-        ),
-      );
-
   @override
   Future<Result<Product>> getProductDetails({required String productId}) async {
     if (await networkInfo.isConnected) {
@@ -124,4 +143,33 @@ class ProductRepositoryImpl implements ProductRepository {
     }
     return left(noInternetConnectionFailure);
   }
+
+  @override
+  Future<Result<Unit>> removeFromFavorites({required String productId}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await productRemoteDataSource.removeProductFromFavorites(productId);
+        return right(unit);
+      } on ProductNoExistedException {
+        return left(const ProductNoExistFailure());
+      } catch (e) {
+        return left(const UnexpectedFailure());
+      }
+    }
+    return left(noInternetConnectionFailure);
+  }
+
+  @override
+  Stream<Iterable<Product>> get favoriteProducts => _favoritesController.stream;
+
+  Future<Product> _productModelToEntity(ProductModel product) =>
+      (categoryRemoteDataSource.getCategoryWithId(product.categoryId)).then(
+        (value) => Product(
+          id: product.id!,
+          name: product.name,
+          imageUrl: product.imageUrl,
+          isFavorite: product.isFavorite,
+          category: value.toEntity,
+        ),
+      );
 }

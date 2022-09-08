@@ -12,9 +12,9 @@ class ProductToCreate {
     required this.imageUrl,
   });
 
-  final String name;
   final Category category;
   final String imageUrl;
+  final String name;
 }
 
 class ProductFieldsToEdit {
@@ -24,22 +24,27 @@ class ProductFieldsToEdit {
     this.imageUrl,
   });
 
-  final String? name;
   final Category? category;
   final String? imageUrl;
+  final String? name;
 }
 
 abstract class ProductRepository {
+  Stream<Iterable<Product>> get favoriteProducts;
+
   Future<Result<Unit>> createProduct({
     required ProductToCreate product,
   });
+
   Future<Result<Unit>> editProduct({
     required String productId,
     required ProductFieldsToEdit fields,
   });
+
   Future<Result<Unit>> deleteProduct({
     required String productId,
   });
+
   Future<Result<Iterable<Product>>> getProduct({
     String query = '',
     int skip = 0,
@@ -47,6 +52,14 @@ abstract class ProductRepository {
   });
 
   Future<Result<Product>> getProductDetails({
+    required String productId,
+  });
+
+  Future<Result<Unit>> addToFavorites({
+    required String productId,
+  });
+
+  Future<Result<Unit>> removeFromFavorites({
     required String productId,
   });
 }

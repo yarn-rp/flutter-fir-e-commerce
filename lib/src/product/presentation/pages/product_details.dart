@@ -7,6 +7,7 @@ import 'package:flutter_fir_e_commerce/core/widgets/adaptive_app_bar/adaptive_ap
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_buttons/adaptive_button.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/dedicated_refresh_scaffold/adaptive_refresh_scaffold.dart';
 import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.dart';
+import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/favorite_products_cubit/favorite_products_cubit.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/product_details_cubit/product_details_cubit.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -70,19 +71,34 @@ class __ProductDetailsViewState extends State<_ProductDetailsView> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 12.0,
-                    horizontal: 40.0,
+                    horizontal: 24.0,
                   ),
                   child: SizedBox(
                     width: double.infinity,
                     child: CupertinoButton(
                       color: Theme.of(context).primaryColor,
                       child: Text(
-                        'Add to cart',
+                        state.product.isFavorite
+                            ? 'Remove from Favorites'
+                            : 'Add to Favorites',
                         style: Theme.of(context).textTheme.headline5?.copyWith(
                               color: Colors.white,
                             ),
                       ),
-                      onPressed: () async {},
+                      onPressed: () {
+                        switch (state.product.isFavorite) {
+                          case true:
+                            context
+                                .read<FavoriteProductsCubit>()
+                                .removeProductFromFavorites(state.product);
+                            break;
+                          case false:
+                            context
+                                .read<FavoriteProductsCubit>()
+                                .addProductToFavorites(state.product);
+                            break;
+                        }
+                      },
                     ),
                   ),
                 ),
