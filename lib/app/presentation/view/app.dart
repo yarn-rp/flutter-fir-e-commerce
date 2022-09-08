@@ -29,7 +29,7 @@ class App extends StatelessWidget {
       routerDelegate: _router.routerDelegate,
       theme: themeLight,
       darkTheme: themeDark,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

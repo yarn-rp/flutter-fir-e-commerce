@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 import 'package:flutter_fir_e_commerce/core/use_case/pagination_params.dart';
@@ -30,6 +32,12 @@ class SearchCubit extends Cubit<SearchState> {
     int skip = 0,
     int take = 16,
   }) async {
+    log('Searching $query');
+    if (query.isEmpty) {
+      emit(const SearchState.initial());
+      return;
+    }
+
     emit(
       SearchState.loading(
         items: state.itemsSafe,

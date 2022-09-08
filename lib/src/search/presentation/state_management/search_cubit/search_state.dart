@@ -7,17 +7,17 @@ class SearchState with _$SearchState {
   const factory SearchState.error({
     Iterable<SearchItem>? items,
     required Failure failure,
-  }) = SearchsError;
+  }) = SearchError;
 
-  const factory SearchState.initial() = _Initial;
+  const factory SearchState.initial() = SearchInitial;
 
   const factory SearchState.loaded({
     required Iterable<SearchItem> items,
-  }) = SearchsLoaded;
+  }) = SearchLoaded;
 
   const factory SearchState.loading({
     Iterable<SearchItem>? items,
-  }) = SearchsLoading;
+  }) = SearchLoading;
 
   Iterable<SearchItem> get itemsSafe =>
       mapOrNull<Iterable<SearchItem>?>(

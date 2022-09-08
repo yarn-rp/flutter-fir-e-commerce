@@ -171,7 +171,7 @@ class ProductListTile extends StatelessWidget {
       ),
       title: Text(product.name),
       subtitle: Text(
-        product.category.name,
+        'from ${product.category.name}',
         style: Theme.of(context).textTheme.subtitle1?.copyWith(
               color: product.category.color,
             ),

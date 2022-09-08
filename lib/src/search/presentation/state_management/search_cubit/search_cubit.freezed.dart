@@ -44,26 +44,26 @@ mixin _$SearchState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SearchsError value) error,
-    required TResult Function(_Initial value) initial,
-    required TResult Function(SearchsLoaded value) loaded,
-    required TResult Function(SearchsLoading value) loading,
+    required TResult Function(SearchError value) error,
+    required TResult Function(SearchInitial value) initial,
+    required TResult Function(SearchLoaded value) loaded,
+    required TResult Function(SearchLoading value) loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -86,29 +86,29 @@ class _$SearchStateCopyWithImpl<$Res> implements $SearchStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$SearchsErrorCopyWith<$Res> {
-  factory _$$SearchsErrorCopyWith(
-          _$SearchsError value, $Res Function(_$SearchsError) then) =
-      __$$SearchsErrorCopyWithImpl<$Res>;
+abstract class _$$SearchErrorCopyWith<$Res> {
+  factory _$$SearchErrorCopyWith(
+          _$SearchError value, $Res Function(_$SearchError) then) =
+      __$$SearchErrorCopyWithImpl<$Res>;
   $Res call({Iterable<SearchItem>? items, Failure failure});
 }
 
 /// @nodoc
-class __$$SearchsErrorCopyWithImpl<$Res> extends _$SearchStateCopyWithImpl<$Res>
-    implements _$$SearchsErrorCopyWith<$Res> {
-  __$$SearchsErrorCopyWithImpl(
-      _$SearchsError _value, $Res Function(_$SearchsError) _then)
-      : super(_value, (v) => _then(v as _$SearchsError));
+class __$$SearchErrorCopyWithImpl<$Res> extends _$SearchStateCopyWithImpl<$Res>
+    implements _$$SearchErrorCopyWith<$Res> {
+  __$$SearchErrorCopyWithImpl(
+      _$SearchError _value, $Res Function(_$SearchError) _then)
+      : super(_value, (v) => _then(v as _$SearchError));
 
   @override
-  _$SearchsError get _value => super._value as _$SearchsError;
+  _$SearchError get _value => super._value as _$SearchError;
 
   @override
   $Res call({
     Object? items = freezed,
     Object? failure = freezed,
   }) {
-    return _then(_$SearchsError(
+    return _then(_$SearchError(
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -123,8 +123,8 @@ class __$$SearchsErrorCopyWithImpl<$Res> extends _$SearchStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchsError extends SearchsError {
-  const _$SearchsError({this.items, required this.failure}) : super._();
+class _$SearchError extends SearchError {
+  const _$SearchError({this.items, required this.failure}) : super._();
 
   @override
   final Iterable<SearchItem>? items;
@@ -140,7 +140,7 @@ class _$SearchsError extends SearchsError {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchsError &&
+            other is _$SearchError &&
             const DeepCollectionEquality().equals(other.items, items) &&
             const DeepCollectionEquality().equals(other.failure, failure));
   }
@@ -153,8 +153,8 @@ class _$SearchsError extends SearchsError {
 
   @JsonKey(ignore: true)
   @override
-  _$$SearchsErrorCopyWith<_$SearchsError> get copyWith =>
-      __$$SearchsErrorCopyWithImpl<_$SearchsError>(this, _$identity);
+  _$$SearchErrorCopyWith<_$SearchError> get copyWith =>
+      __$$SearchErrorCopyWithImpl<_$SearchError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -197,10 +197,10 @@ class _$SearchsError extends SearchsError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SearchsError value) error,
-    required TResult Function(_Initial value) initial,
-    required TResult Function(SearchsLoaded value) loaded,
-    required TResult Function(SearchsLoading value) loading,
+    required TResult Function(SearchError value) error,
+    required TResult Function(SearchInitial value) initial,
+    required TResult Function(SearchLoaded value) loaded,
+    required TResult Function(SearchLoading value) loading,
   }) {
     return error(this);
   }
@@ -208,10 +208,10 @@ class _$SearchsError extends SearchsError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
   }) {
     return error?.call(this);
   }
@@ -219,10 +219,10 @@ class _$SearchsError extends SearchsError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -232,40 +232,42 @@ class _$SearchsError extends SearchsError {
   }
 }
 
-abstract class SearchsError extends SearchState {
-  const factory SearchsError(
+abstract class SearchError extends SearchState {
+  const factory SearchError(
       {final Iterable<SearchItem>? items,
-      required final Failure failure}) = _$SearchsError;
-  const SearchsError._() : super._();
+      required final Failure failure}) = _$SearchError;
+  const SearchError._() : super._();
 
   Iterable<SearchItem>? get items;
   Failure get failure;
   @JsonKey(ignore: true)
-  _$$SearchsErrorCopyWith<_$SearchsError> get copyWith =>
+  _$$SearchErrorCopyWith<_$SearchError> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res> {
-  factory _$$_InitialCopyWith(
-          _$_Initial value, $Res Function(_$_Initial) then) =
-      __$$_InitialCopyWithImpl<$Res>;
+abstract class _$$SearchInitialCopyWith<$Res> {
+  factory _$$SearchInitialCopyWith(
+          _$SearchInitial value, $Res Function(_$SearchInitial) then) =
+      __$$SearchInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InitialCopyWithImpl<$Res> extends _$SearchStateCopyWithImpl<$Res>
-    implements _$$_InitialCopyWith<$Res> {
-  __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
-      : super(_value, (v) => _then(v as _$_Initial));
+class __$$SearchInitialCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res>
+    implements _$$SearchInitialCopyWith<$Res> {
+  __$$SearchInitialCopyWithImpl(
+      _$SearchInitial _value, $Res Function(_$SearchInitial) _then)
+      : super(_value, (v) => _then(v as _$SearchInitial));
 
   @override
-  _$_Initial get _value => super._value as _$_Initial;
+  _$SearchInitial get _value => super._value as _$SearchInitial;
 }
 
 /// @nodoc
 
-class _$_Initial extends _Initial {
-  const _$_Initial() : super._();
+class _$SearchInitial extends SearchInitial {
+  const _$SearchInitial() : super._();
 
   @override
   String toString() {
@@ -275,7 +277,7 @@ class _$_Initial extends _Initial {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Initial);
+        (other.runtimeType == runtimeType && other is _$SearchInitial);
   }
 
   @override
@@ -322,10 +324,10 @@ class _$_Initial extends _Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SearchsError value) error,
-    required TResult Function(_Initial value) initial,
-    required TResult Function(SearchsLoaded value) loaded,
-    required TResult Function(SearchsLoading value) loading,
+    required TResult Function(SearchError value) error,
+    required TResult Function(SearchInitial value) initial,
+    required TResult Function(SearchLoaded value) loaded,
+    required TResult Function(SearchLoading value) loading,
   }) {
     return initial(this);
   }
@@ -333,10 +335,10 @@ class _$_Initial extends _Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
   }) {
     return initial?.call(this);
   }
@@ -344,10 +346,10 @@ class _$_Initial extends _Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -357,35 +359,34 @@ class _$_Initial extends _Initial {
   }
 }
 
-abstract class _Initial extends SearchState {
-  const factory _Initial() = _$_Initial;
-  const _Initial._() : super._();
+abstract class SearchInitial extends SearchState {
+  const factory SearchInitial() = _$SearchInitial;
+  const SearchInitial._() : super._();
 }
 
 /// @nodoc
-abstract class _$$SearchsLoadedCopyWith<$Res> {
-  factory _$$SearchsLoadedCopyWith(
-          _$SearchsLoaded value, $Res Function(_$SearchsLoaded) then) =
-      __$$SearchsLoadedCopyWithImpl<$Res>;
+abstract class _$$SearchLoadedCopyWith<$Res> {
+  factory _$$SearchLoadedCopyWith(
+          _$SearchLoaded value, $Res Function(_$SearchLoaded) then) =
+      __$$SearchLoadedCopyWithImpl<$Res>;
   $Res call({Iterable<SearchItem> items});
 }
 
 /// @nodoc
-class __$$SearchsLoadedCopyWithImpl<$Res>
-    extends _$SearchStateCopyWithImpl<$Res>
-    implements _$$SearchsLoadedCopyWith<$Res> {
-  __$$SearchsLoadedCopyWithImpl(
-      _$SearchsLoaded _value, $Res Function(_$SearchsLoaded) _then)
-      : super(_value, (v) => _then(v as _$SearchsLoaded));
+class __$$SearchLoadedCopyWithImpl<$Res> extends _$SearchStateCopyWithImpl<$Res>
+    implements _$$SearchLoadedCopyWith<$Res> {
+  __$$SearchLoadedCopyWithImpl(
+      _$SearchLoaded _value, $Res Function(_$SearchLoaded) _then)
+      : super(_value, (v) => _then(v as _$SearchLoaded));
 
   @override
-  _$SearchsLoaded get _value => super._value as _$SearchsLoaded;
+  _$SearchLoaded get _value => super._value as _$SearchLoaded;
 
   @override
   $Res call({
     Object? items = freezed,
   }) {
-    return _then(_$SearchsLoaded(
+    return _then(_$SearchLoaded(
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -396,8 +397,8 @@ class __$$SearchsLoadedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchsLoaded extends SearchsLoaded {
-  const _$SearchsLoaded({required this.items}) : super._();
+class _$SearchLoaded extends SearchLoaded {
+  const _$SearchLoaded({required this.items}) : super._();
 
   @override
   final Iterable<SearchItem> items;
@@ -411,7 +412,7 @@ class _$SearchsLoaded extends SearchsLoaded {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchsLoaded &&
+            other is _$SearchLoaded &&
             const DeepCollectionEquality().equals(other.items, items));
   }
 
@@ -421,8 +422,8 @@ class _$SearchsLoaded extends SearchsLoaded {
 
   @JsonKey(ignore: true)
   @override
-  _$$SearchsLoadedCopyWith<_$SearchsLoaded> get copyWith =>
-      __$$SearchsLoadedCopyWithImpl<_$SearchsLoaded>(this, _$identity);
+  _$$SearchLoadedCopyWith<_$SearchLoaded> get copyWith =>
+      __$$SearchLoadedCopyWithImpl<_$SearchLoaded>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -465,10 +466,10 @@ class _$SearchsLoaded extends SearchsLoaded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SearchsError value) error,
-    required TResult Function(_Initial value) initial,
-    required TResult Function(SearchsLoaded value) loaded,
-    required TResult Function(SearchsLoading value) loading,
+    required TResult Function(SearchError value) error,
+    required TResult Function(SearchInitial value) initial,
+    required TResult Function(SearchLoaded value) loaded,
+    required TResult Function(SearchLoading value) loading,
   }) {
     return loaded(this);
   }
@@ -476,10 +477,10 @@ class _$SearchsLoaded extends SearchsLoaded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
   }) {
     return loaded?.call(this);
   }
@@ -487,10 +488,10 @@ class _$SearchsLoaded extends SearchsLoaded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -500,41 +501,41 @@ class _$SearchsLoaded extends SearchsLoaded {
   }
 }
 
-abstract class SearchsLoaded extends SearchState {
-  const factory SearchsLoaded({required final Iterable<SearchItem> items}) =
-      _$SearchsLoaded;
-  const SearchsLoaded._() : super._();
+abstract class SearchLoaded extends SearchState {
+  const factory SearchLoaded({required final Iterable<SearchItem> items}) =
+      _$SearchLoaded;
+  const SearchLoaded._() : super._();
 
   Iterable<SearchItem> get items;
   @JsonKey(ignore: true)
-  _$$SearchsLoadedCopyWith<_$SearchsLoaded> get copyWith =>
+  _$$SearchLoadedCopyWith<_$SearchLoaded> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SearchsLoadingCopyWith<$Res> {
-  factory _$$SearchsLoadingCopyWith(
-          _$SearchsLoading value, $Res Function(_$SearchsLoading) then) =
-      __$$SearchsLoadingCopyWithImpl<$Res>;
+abstract class _$$SearchLoadingCopyWith<$Res> {
+  factory _$$SearchLoadingCopyWith(
+          _$SearchLoading value, $Res Function(_$SearchLoading) then) =
+      __$$SearchLoadingCopyWithImpl<$Res>;
   $Res call({Iterable<SearchItem>? items});
 }
 
 /// @nodoc
-class __$$SearchsLoadingCopyWithImpl<$Res>
+class __$$SearchLoadingCopyWithImpl<$Res>
     extends _$SearchStateCopyWithImpl<$Res>
-    implements _$$SearchsLoadingCopyWith<$Res> {
-  __$$SearchsLoadingCopyWithImpl(
-      _$SearchsLoading _value, $Res Function(_$SearchsLoading) _then)
-      : super(_value, (v) => _then(v as _$SearchsLoading));
+    implements _$$SearchLoadingCopyWith<$Res> {
+  __$$SearchLoadingCopyWithImpl(
+      _$SearchLoading _value, $Res Function(_$SearchLoading) _then)
+      : super(_value, (v) => _then(v as _$SearchLoading));
 
   @override
-  _$SearchsLoading get _value => super._value as _$SearchsLoading;
+  _$SearchLoading get _value => super._value as _$SearchLoading;
 
   @override
   $Res call({
     Object? items = freezed,
   }) {
-    return _then(_$SearchsLoading(
+    return _then(_$SearchLoading(
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -545,8 +546,8 @@ class __$$SearchsLoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchsLoading extends SearchsLoading {
-  const _$SearchsLoading({this.items}) : super._();
+class _$SearchLoading extends SearchLoading {
+  const _$SearchLoading({this.items}) : super._();
 
   @override
   final Iterable<SearchItem>? items;
@@ -560,7 +561,7 @@ class _$SearchsLoading extends SearchsLoading {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchsLoading &&
+            other is _$SearchLoading &&
             const DeepCollectionEquality().equals(other.items, items));
   }
 
@@ -570,8 +571,8 @@ class _$SearchsLoading extends SearchsLoading {
 
   @JsonKey(ignore: true)
   @override
-  _$$SearchsLoadingCopyWith<_$SearchsLoading> get copyWith =>
-      __$$SearchsLoadingCopyWithImpl<_$SearchsLoading>(this, _$identity);
+  _$$SearchLoadingCopyWith<_$SearchLoading> get copyWith =>
+      __$$SearchLoadingCopyWithImpl<_$SearchLoading>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -614,10 +615,10 @@ class _$SearchsLoading extends SearchsLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SearchsError value) error,
-    required TResult Function(_Initial value) initial,
-    required TResult Function(SearchsLoaded value) loaded,
-    required TResult Function(SearchsLoading value) loading,
+    required TResult Function(SearchError value) error,
+    required TResult Function(SearchInitial value) initial,
+    required TResult Function(SearchLoaded value) loaded,
+    required TResult Function(SearchLoading value) loading,
   }) {
     return loading(this);
   }
@@ -625,10 +626,10 @@ class _$SearchsLoading extends SearchsLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
   }) {
     return loading?.call(this);
   }
@@ -636,10 +637,10 @@ class _$SearchsLoading extends SearchsLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SearchsError value)? error,
-    TResult Function(_Initial value)? initial,
-    TResult Function(SearchsLoaded value)? loaded,
-    TResult Function(SearchsLoading value)? loading,
+    TResult Function(SearchError value)? error,
+    TResult Function(SearchInitial value)? initial,
+    TResult Function(SearchLoaded value)? loaded,
+    TResult Function(SearchLoading value)? loading,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -649,13 +650,13 @@ class _$SearchsLoading extends SearchsLoading {
   }
 }
 
-abstract class SearchsLoading extends SearchState {
-  const factory SearchsLoading({final Iterable<SearchItem>? items}) =
-      _$SearchsLoading;
-  const SearchsLoading._() : super._();
+abstract class SearchLoading extends SearchState {
+  const factory SearchLoading({final Iterable<SearchItem>? items}) =
+      _$SearchLoading;
+  const SearchLoading._() : super._();
 
   Iterable<SearchItem>? get items;
   @JsonKey(ignore: true)
-  _$$SearchsLoadingCopyWith<_$SearchsLoading> get copyWith =>
+  _$$SearchLoadingCopyWith<_$SearchLoading> get copyWith =>
       throw _privateConstructorUsedError;
 }

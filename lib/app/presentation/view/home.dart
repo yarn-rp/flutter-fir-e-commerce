@@ -3,8 +3,8 @@ import 'package:flutter_fir_e_commerce/src/category/presentation/widgets/categor
 
 class HomePage extends StatefulWidget {
   const HomePage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,8 +15,8 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [
-        const CategoriesCarouselWidget(),
+      children: const [
+        CategoriesCarouselWidget(),
       ],
     );
   }

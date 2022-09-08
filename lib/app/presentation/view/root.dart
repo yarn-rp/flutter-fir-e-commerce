@@ -2,14 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fir_e_commerce/app/presentation/view/home.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_app_bar/adaptive_app_bar.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_app_bar/adaptive_search_bar.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_bottom_tab_bar/dedicated_bottom_tab_bar.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_buttons/adaptive_button.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/dedicated_refresh_scaffold/adaptive_refresh_scaffold.dart';
+import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/pages/categories_page.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/pages/product_page.dart';
+import 'package:flutter_fir_e_commerce/src/search/presentation/pages/search_page.dart';
+import 'package:flutter_fir_e_commerce/src/search/presentation/state_management/search_cubit/search_cubit.dart';
 
 enum TabPageEnum {
   home(icon: CupertinoIcons.home, label: 'Home'),
@@ -39,7 +43,7 @@ enum TabPageEnum {
   final Key? key;
 }
 
-class Root extends StatefulWidget {
+class Root extends StatelessWidget {
   const Root({
     super.key,
     this.initialPage = TabPageEnum.home,
@@ -48,28 +52,50 @@ class Root extends StatefulWidget {
   final TabPageEnum initialPage;
 
   @override
-  State<Root> createState() => _RootState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => sl<SearchCubit>(),
+      child: RootView(
+        initialPage: initialPage,
+      ),
+    );
+  }
 }
 
-class _RootState extends State<Root> {
+class RootView extends StatefulWidget {
+  const RootView({
+    super.key,
+    this.initialPage = TabPageEnum.home,
+  });
+
+  final TabPageEnum initialPage;
+
+  @override
+  State<RootView> createState() => _RootViewState();
+}
+
+class _RootViewState extends State<RootView> {
   late int currentIndex;
   late PageController pageController;
 
   late FocusNode searchFocus;
   late ValueNotifier<bool> shouldShowSearch;
   late final TextEditingController _textController;
+
   @override
   void initState() {
     super.initState();
 
     shouldShowSearch = ValueNotifier(false);
 
-    _textController = TextEditingController();
+    _textController = TextEditingController()
+      ..addListener(() {
+        context.read<SearchCubit>().search(
+              query: _textController.text,
+            );
+      });
 
     searchFocus = FocusNode();
-
-    // TODO: implement initState
-    super.initState();
 
     shouldShowSearch = ValueNotifier(false);
     switch (widget.initialPage) {
@@ -187,7 +213,9 @@ class _RootState extends State<Root> {
         duration: const Duration(
           milliseconds: 100,
         ),
-        secondChild: Container(),
+        secondChild: SearchPage(
+          bloc: context.read<SearchCubit>(),
+        ),
         firstChild: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: pageController,
