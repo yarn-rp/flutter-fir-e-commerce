@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_fir_e_commerce/app/view/home.dart';
+import 'package:flutter_fir_e_commerce/app/presentation/view/home.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_app_bar/adaptive_app_bar.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_app_bar/adaptive_search_bar.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_bottom_tab_bar/dedicated_bottom_tab_bar.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/adaptive_buttons/adaptive_button.dart';
 import 'package:flutter_fir_e_commerce/core/widgets/dedicated_refresh_scaffold/adaptive_refresh_scaffold.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/pages/categories_page.dart';
-import 'package:flutter_fir_e_commerce/src/category/presentation/widgets/categories_carousel_widgets.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/pages/product_page.dart';
 
 enum TabPageEnum {

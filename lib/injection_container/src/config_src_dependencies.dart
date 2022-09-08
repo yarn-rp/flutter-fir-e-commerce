@@ -3,6 +3,7 @@ import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.d
 import 'package:flutter_fir_e_commerce/injection_container/src/category/config_categories.dart';
 import 'package:flutter_fir_e_commerce/injection_container/src/images/config_images.dart';
 import 'package:flutter_fir_e_commerce/injection_container/src/product/config_products.dart';
+import 'package:flutter_fir_e_commerce/injection_container/src/search/config_search.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -20,6 +21,7 @@ Future<void> configureSrcDependencies(
     configureCategoriesDependencies,
     configureImagesDependencies,
     configureProductDependencies,
+    configureSearchDependencies,
   ];
 
   featuresToInit.forEach(

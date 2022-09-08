@@ -1,13 +1,14 @@
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
+import 'package:flutter_fir_e_commerce/src/search/domain/entities/search_entity.dart';
 
-class Product {
+class Product extends SearchItem {
   Product({
     required this.id,
     required this.name,
     required this.imageUrl,
     required this.category,
     required this.isFavorite,
-  });
+  }) : super(name);
 
   final String id;
   final String name;

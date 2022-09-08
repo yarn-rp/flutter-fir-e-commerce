@@ -6,17 +6,15 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_fir_e_commerce/app/view/root.dart';
+import 'package:flutter_fir_e_commerce/app/presentation/view/root.dart';
+import 'package:flutter_fir_e_commerce/core/theme/dark_theme.dart';
 import 'package:flutter_fir_e_commerce/core/theme/light_theme.dart';
 import 'package:flutter_fir_e_commerce/l10n/l10n.dart';
-import 'package:flutter_fir_e_commerce/src/category/presentation/pages/categories_page.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/pages/create_category_page.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/pages/create_product_page.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/pages/product_details.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../core/theme/dark_theme.dart';
 
 part '../routes/routes.dart';
 
