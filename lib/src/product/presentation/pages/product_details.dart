@@ -128,24 +128,28 @@ class __ProductDetailsViewState extends State<_ProductDetailsView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${state.product.name} from ${state.product.category.name}',
-                            style:
-                                Theme.of(context).textTheme.headline6?.copyWith(
-                                      color: state.product.category.color,
-                                    ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            '\$1200.00 ',
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${state.product.name} from ${state.product.category.name}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  ?.copyWith(
+                                    color: state.product.category.color,
+                                  ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              '\$1200.00 ',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ],
+                        ),
                       ),
                       AdaptiveIconButton(
                         onPressed: () {

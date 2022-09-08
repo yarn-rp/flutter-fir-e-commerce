@@ -34,16 +34,20 @@ import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_product_
     as _i17;
 import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_products_use_case.dart'
     as _i18;
+import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/get_store_use_case.dart'
+    as _i19;
 import 'package:flutter_fir_e_commerce/src/product/domain/use_cases/remove_product_from_favorites_use_case.dart'
     as _i9;
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/create_product_cubit/create_product_cubit.dart'
-    as _i21;
+    as _i23;
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/favorite_products_cubit/favorite_products_cubit.dart'
-    as _i22;
+    as _i24;
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/product_details_cubit/product_details_cubit.dart'
-    as _i20;
+    as _i21;
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/products_cubit/product_cubit.dart'
-    as _i19;
+    as _i20;
+import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/shopping_items_cubit/shopping_items_cubit.dart'
+    as _i22;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart'
     as _i2; // ignore_for_file: unnecessary_lambdas
@@ -79,16 +83,20 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i17.GetProductDetailsUseCase(get<_i5.ProductRepository>()));
   gh.factory<_i18.GetProductsUseCase>(
       () => _i18.GetProductsUseCase(get<_i5.ProductRepository>()));
-  gh.factory<_i19.ProductCubit>(() => _i19.ProductCubit(
+  gh.factory<_i19.GetStoreUseCase>(
+      () => _i19.GetStoreUseCase(get<_i5.ProductRepository>()));
+  gh.factory<_i20.ProductCubit>(() => _i20.ProductCubit(
       get<_i18.GetProductsUseCase>(),
       get<_i14.DeleteProductUseCase>(),
       get<_i16.GetFavoriteProductsUseCase>()));
-  gh.factory<_i20.ProductDetailsCubit>(() => _i20.ProductDetailsCubit(
+  gh.factory<_i21.ProductDetailsCubit>(() => _i21.ProductDetailsCubit(
       get<_i17.GetProductDetailsUseCase>(),
       get<_i16.GetFavoriteProductsUseCase>()));
-  gh.factory<_i21.CreateProductCubit>(
-      () => _i21.CreateProductCubit(get<_i11.CreateProductUseCase>()));
-  gh.singleton<_i22.FavoriteProductsCubit>(_i22.FavoriteProductsCubit(
+  gh.factory<_i22.ShoppingItemsCubit>(() => _i22.ShoppingItemsCubit(
+      get<_i19.GetStoreUseCase>(), get<_i16.GetFavoriteProductsUseCase>()));
+  gh.factory<_i23.CreateProductCubit>(
+      () => _i23.CreateProductCubit(get<_i11.CreateProductUseCase>()));
+  gh.singleton<_i24.FavoriteProductsCubit>(_i24.FavoriteProductsCubit(
       get<_i16.GetFavoriteProductsUseCase>(),
       get<_i10.AddProductToFavoritesUseCase>(),
       get<_i9.RemoveProductFromFavoritesUseCase>()));

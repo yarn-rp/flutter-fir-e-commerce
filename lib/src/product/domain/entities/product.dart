@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
 import 'package:flutter_fir_e_commerce/src/search/domain/entities/search_entity.dart';
 
-class Product extends SearchItem {
+class Product extends SearchItem with EquatableMixin {
   Product({
     required this.id,
     required this.name,
@@ -30,4 +31,8 @@ class Product extends SearchItem {
       isFavorite: isFavorite ?? this.isFavorite,
     );
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id];
 }

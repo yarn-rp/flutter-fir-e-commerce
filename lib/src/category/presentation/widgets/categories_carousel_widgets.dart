@@ -6,24 +6,28 @@ import 'package:flutter_fir_e_commerce/core/widgets/adaptive_buttons/adaptive_bu
 import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.dart';
 import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/state_manegement/category_cubit/category_cubit.dart';
-import 'package:flutter_fir_e_commerce/src/category/presentation/widgets/category_card_widget.dart';
-import 'package:collection/collection.dart';
 import 'package:go_router/go_router.dart';
 
 class CategoriesCarouselWidget extends StatelessWidget {
-  const CategoriesCarouselWidget({super.key});
+  const CategoriesCarouselWidget({super.key, this.onExploreNow});
+
+  final VoidCallback? onExploreNow;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<CategoryCubit>(),
-      child: const _CategoriesCarouselWidget(),
+      child: _CategoriesCarouselWidget(
+        onExploreNow: onExploreNow,
+      ),
     );
   }
 }
 
 class _CategoriesCarouselWidget extends StatefulWidget {
-  const _CategoriesCarouselWidget({super.key});
+  const _CategoriesCarouselWidget({super.key, this.onExploreNow});
+
+  final VoidCallback? onExploreNow;
 
   @override
   State<_CategoriesCarouselWidget> createState() =>
@@ -31,10 +35,12 @@ class _CategoriesCarouselWidget extends StatefulWidget {
 }
 
 class __CategoriesCarouselWidgetState extends State<_CategoriesCarouselWidget> {
+  late final List<ScrollController> controllersList;
+
   final _scrollController1 = ScrollController(initialScrollOffset: 100);
   final _scrollController2 = ScrollController(initialScrollOffset: 85);
   final _scrollController3 = ScrollController(initialScrollOffset: 140);
-  late final List<ScrollController> controllersList;
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +50,30 @@ class __CategoriesCarouselWidgetState extends State<_CategoriesCarouselWidget> {
       _scrollController3
     ];
     context.read<CategoryCubit>().getCategories();
+  }
+
+  Future<void> animateToMaxMin(
+    double max,
+    double min,
+    double direction,
+    int seconds,
+    ScrollController scrollController,
+  ) async {
+    if (scrollController.hasClients) {
+      return scrollController
+          .animateTo(
+            direction,
+            duration: Duration(seconds: seconds),
+            curve: Curves.linear,
+          )
+          .then((value) => animateToMaxMin(
+                max,
+                min,
+                direction == max ? min : max,
+                seconds,
+                scrollController,
+              ));
+    }
   }
 
   void _startAnimation() {
@@ -78,29 +108,6 @@ class __CategoriesCarouselWidgetState extends State<_CategoriesCarouselWidget> {
       );
     });
   }
-
-  Future<void> animateToMaxMin(
-    double max,
-    double min,
-    double direction,
-    int seconds,
-    ScrollController scrollController,
-  ) =>
-      scrollController
-          .animateTo(
-        direction,
-        duration: Duration(seconds: seconds),
-        curve: Curves.linear,
-      )
-          .then((value) {
-        animateToMaxMin(
-          max,
-          min,
-          direction == max ? min : max,
-          seconds,
-          scrollController,
-        );
-      });
 
   @override
   Widget build(BuildContext context) {
@@ -209,9 +216,7 @@ class __CategoriesCarouselWidgetState extends State<_CategoriesCarouselWidget> {
                 AdaptiveButton(
                   child: CupertinoButton(
                     color: Theme.of(context).primaryColor,
-                    onPressed: () {
-                      context.go('/categories');
-                    },
+                    onPressed: widget.onExploreNow,
                     child: Text('Explore now'),
                   ),
                 ),
@@ -225,16 +230,17 @@ class __CategoriesCarouselWidgetState extends State<_CategoriesCarouselWidget> {
 }
 
 class CategoryListView extends StatelessWidget {
-  final ScrollController scrollController;
-  final List<Category> images;
-  final int skip;
-
   const CategoryListView({
     super.key,
     required this.scrollController,
     required this.images,
     this.skip = 0,
   });
+
+  final List<Category> images;
+  final ScrollController scrollController;
+  final int skip;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -266,6 +272,7 @@ class CarouselItemWidget extends StatelessWidget {
     super.key,
     required this.category,
   });
+
   final Category category;
 
   @override

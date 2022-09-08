@@ -20,10 +20,10 @@ import 'package:go_router/go_router.dart';
 
 enum TabPageEnum {
   home(icon: CupertinoIcons.home, label: 'Home'),
-  categories(
-    icon: CupertinoIcons.selection_pin_in_out,
-    label: 'Categories',
-  ),
+  // categories(
+  //   icon: CupertinoIcons.selection_pin_in_out,
+  //   label: 'Categories',
+  // ),
   products(
     icon: CupertinoIcons.square_line_vertical_square,
     label: 'Products',
@@ -105,11 +105,9 @@ class _RootViewState extends State<RootView> {
       case TabPageEnum.home:
         currentIndex = 0;
         break;
-      case TabPageEnum.categories:
-        currentIndex = 1;
-        break;
+
       case TabPageEnum.products:
-        currentIndex = 2;
+        currentIndex = 1;
         break;
     }
 
