@@ -41,24 +41,38 @@ enum TabPageEnum {
 }
 
 class Root extends StatefulWidget {
-  final TabPageEnum initialPage;
   const Root({
     super.key,
     this.initialPage = TabPageEnum.home,
   });
+
+  final TabPageEnum initialPage;
 
   @override
   State<Root> createState() => _RootState();
 }
 
 class _RootState extends State<Root> {
-  late PageController pageController;
   late int currentIndex;
+  late PageController pageController;
 
+  late FocusNode searchFocus;
+  late ValueNotifier<bool> shouldShowSearch;
+  late final TextEditingController _textController;
   @override
   void initState() {
+    super.initState();
+
+    shouldShowSearch = ValueNotifier(false);
+
+    _textController = TextEditingController();
+
+    searchFocus = FocusNode();
+
     // TODO: implement initState
     super.initState();
+
+    shouldShowSearch = ValueNotifier(false);
     switch (widget.initialPage) {
       case TabPageEnum.home:
         currentIndex = 0;
@@ -72,6 +86,13 @@ class _RootState extends State<Root> {
     }
 
     pageController = PageController(initialPage: currentIndex);
+  }
+
+  @override
+  void dispose() {
+    searchFocus.dispose();
+    pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -120,24 +141,63 @@ class _RootState extends State<Root> {
           ],
         ),
         bottom: AdaptiveSearchBar(
-          floating: true,
-          showBorder: false,
-          controller: TextEditingController(),
+          shouldShowTrailing: shouldShowSearch,
+
+          searchFocus: searchFocus,
+          onChanged: (_) {},
+          trailing: Text(
+            'Cancel',
+            style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                  fontSize: 18,
+                  letterSpacing: 0.15,
+                ),
+          ),
+          // topPadding: MediaQuery.of(context).viewPadding.top,
           height: kToolbarHeight,
-          onChanged: (s) {},
-          onFocusChanged: (bool show) {},
-          onSubmitted: (s) {},
-          searchFocus: FocusNode(),
+          controller: _textController,
+          onTapTrailing: (show) {
+            setState(() {
+              shouldShowSearch.value = show;
+            });
+          },
+          onFocusChanged: (bool show) {
+            if (show) {
+              setState(() {
+                shouldShowSearch.value = show;
+              });
+            }
+          },
+          onSubmitted: (s) {
+            searchFocus.unfocus();
+          },
         ),
       ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: pageController,
-        children: const [
-          HomePage(),
-          CategoriesPage(),
-          ProductsPage(),
-        ],
+      body: AnimatedCrossFade(
+        layoutBuilder: (topChild, topChildKey, bottomChild, bottomChildKey) =>
+            Stack(
+          fit: StackFit.expand,
+          alignment: Alignment.topCenter,
+          children: [
+            topChild,
+            bottomChild,
+          ],
+        ),
+        crossFadeState: !shouldShowSearch.value
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        duration: const Duration(
+          milliseconds: 100,
+        ),
+        secondChild: Container(),
+        firstChild: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: pageController,
+          children: const [
+            HomePage(),
+            CategoriesPage(),
+            ProductsPage(),
+          ],
+        ),
       ),
     );
   }
