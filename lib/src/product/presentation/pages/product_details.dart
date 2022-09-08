@@ -17,8 +17,15 @@ class ProductDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<ProductDetailsCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<FavoriteProductsCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => sl<ProductDetailsCubit>(),
+        )
+      ],
       child: _ProductDetailsView(
         productId: productId,
       ),
@@ -76,7 +83,9 @@ class __ProductDetailsViewState extends State<_ProductDetailsView> {
                   child: SizedBox(
                     width: double.infinity,
                     child: CupertinoButton(
-                      color: Theme.of(context).primaryColor,
+                      color: state.product.isFavorite
+                          ? Theme.of(context).errorColor
+                          : Theme.of(context).primaryColor,
                       child: Text(
                         state.product.isFavorite
                             ? 'Remove from Favorites'
@@ -139,9 +148,27 @@ class __ProductDetailsViewState extends State<_ProductDetailsView> {
                         ],
                       ),
                       AdaptiveIconButton(
-                        onPressed: () {},
-                        icon: const CircleAvatar(
-                          child: Icon(CupertinoIcons.heart),
+                        onPressed: () {
+                          switch (state.product.isFavorite) {
+                            case true:
+                              context
+                                  .read<FavoriteProductsCubit>()
+                                  .removeProductFromFavorites(state.product);
+                              break;
+                            case false:
+                              context
+                                  .read<FavoriteProductsCubit>()
+                                  .addProductToFavorites(state.product);
+                              break;
+                          }
+                        },
+                        icon: CircleAvatar(
+                          child: Icon(
+                            state.product.isFavorite
+                                ? CupertinoIcons.heart_fill
+                                : CupertinoIcons.heart,
+                            color: state.product.isFavorite ? Colors.red : null,
+                          ),
                         ),
                       )
                     ],

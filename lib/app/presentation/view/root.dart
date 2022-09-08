@@ -16,6 +16,7 @@ import 'package:flutter_fir_e_commerce/src/product/presentation/pages/product_pa
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/favorite_products_cubit/favorite_products_cubit.dart';
 import 'package:flutter_fir_e_commerce/src/search/presentation/pages/search_page.dart';
 import 'package:flutter_fir_e_commerce/src/search/presentation/state_management/search_cubit/search_cubit.dart';
+import 'package:go_router/go_router.dart';
 
 enum TabPageEnum {
   home(icon: CupertinoIcons.home, label: 'Home'),
@@ -150,10 +151,12 @@ class _RootViewState extends State<RootView> {
                 BlocBuilder<FavoriteProductsCubit, FavoriteProductsState>(
                   builder: (context, state) {
                     return AdaptiveIconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.go('/home/favorites-products');
+                      },
                       icon: Badge(
                         badgeColor: Theme.of(context).primaryColor,
-                        animationType: BadgeAnimationType.scale,
+                        showBadge: state.productsSafe.isNotEmpty,
                         badgeContent: Text(
                           state.productsSafe.length.toString(),
                         ),

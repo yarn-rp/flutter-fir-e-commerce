@@ -7,6 +7,7 @@ import 'package:flutter_fir_e_commerce/src/category/domain/entities/category.dar
 import 'package:flutter_fir_e_commerce/src/category/presentation/widgets/category_card_widget.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/pages/product_page.dart';
+import 'package:flutter_fir_e_commerce/src/product/presentation/widgets/product_list_tile.dart';
 import 'package:flutter_fir_e_commerce/src/search/presentation/state_management/search_cubit/search_cubit.dart';
 
 class SearchPage extends StatelessWidget {

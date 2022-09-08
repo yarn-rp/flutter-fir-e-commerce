@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
@@ -17,10 +19,17 @@ class FavoriteProductsCubit extends Cubit<FavoriteProductsState> {
     this._addProductToFavoritesUseCase,
     this._removeProductFromFavoritesUseCase,
   ) : super(const FavoriteProductsState.initial()) {
-    _getFavoriteProductsUseCase().forEach(_emitSuccess);
+    onFavoritesSubscription =
+        _getFavoriteProductsUseCase().listen(_emitSuccess);
   }
   void _emitSuccess(Iterable<Product> products) =>
       emit(FavoriteProductsState.success(products: products));
+  late StreamSubscription onFavoritesSubscription;
+
+  @override
+
+  ///Do not close this because this is a singleton
+  Future<void> close() async {}
 
   final AddProductToFavoritesUseCase _addProductToFavoritesUseCase;
   final GetFavoriteProductsUseCase _getFavoriteProductsUseCase;

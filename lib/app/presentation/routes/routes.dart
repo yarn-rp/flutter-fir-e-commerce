@@ -22,6 +22,11 @@ final GoRouter _router = GoRouter(
       path: '/:screen(home|categories|products)',
       routes: [
         GoRoute(
+          path: 'favorites-products',
+          builder: (BuildContext context, GoRouterState state) =>
+              const FavoriteProductsPage(),
+        ),
+        GoRoute(
           path: 'create',
           builder: (BuildContext context, GoRouterState state) {
             final screen = state.params['screen']!;

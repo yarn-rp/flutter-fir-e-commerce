@@ -14,6 +14,7 @@ import 'package:flutter_fir_e_commerce/injection_container/config_dependencies.d
 import 'package:flutter_fir_e_commerce/l10n/l10n.dart';
 import 'package:flutter_fir_e_commerce/src/category/presentation/pages/create_category_page.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/pages/create_product_page.dart';
+import 'package:flutter_fir_e_commerce/src/product/presentation/pages/favorite_products_page.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/pages/product_details.dart';
 import 'package:flutter_fir_e_commerce/src/product/presentation/state_management/favorite_products_cubit/favorite_products_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
