@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -95,13 +97,16 @@ class __ProductDetailsViewState extends State<_ProductDetailsView> {
                             ),
                       ),
                       onPressed: () {
+                        log('On pressed pressed');
                         switch (state.product.isFavorite) {
                           case true:
+                            log('GOing to remove');
                             context
                                 .read<FavoriteProductsCubit>()
                                 .removeProductFromFavorites(state.product);
                             break;
                           case false:
+                            log('GOing to add');
                             context
                                 .read<FavoriteProductsCubit>()
                                 .addProductToFavorites(state.product);

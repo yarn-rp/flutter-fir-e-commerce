@@ -34,5 +34,11 @@ class Product extends SearchItem with EquatableMixin {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id];
+  List<Object?> get props => [
+        id,
+        name,
+        imageUrl,
+        category,
+        isFavorite,
+      ];
 }

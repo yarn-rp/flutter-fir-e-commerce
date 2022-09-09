@@ -42,9 +42,8 @@ class __HomePageSView extends State<_HomeView>
   Widget build(BuildContext context) {
     return ListView(
       // shrinkWrap: true,
-      addAutomaticKeepAlives: true,
       // itemExtent: 1000000,
-      cacheExtent: double.infinity,
+      cacheExtent: 10000,
       children: [
         CategoriesCarouselWidget(
           key: ValueKey('jojo'),

@@ -20,15 +20,15 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     onFavoritesSubscription =
         getFavoriteProductsUseCase().listen(_onFavoriteProductsChanges);
   }
-
-  final GetProductDetailsUseCase getProductsUseCase;
-  late StreamSubscription onFavoritesSubscription;
-
   @override
   Future<void> close() {
     onFavoritesSubscription.cancel();
     return super.close();
   }
+
+  late StreamSubscription onFavoritesSubscription;
+
+  final GetProductDetailsUseCase getProductsUseCase;
 
   Future<void> getProductDetails(String productId) async {
     emit(const ProductDetailsState.loading());

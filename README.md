@@ -12,11 +12,11 @@ A very simple product that shows some good practices that I apply everyday as a 
 
 - Flutter adaptation of [Clean Architecture](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164) by [Robert C. Martin](https://en.wikipedia.org/wiki/Robert_C._Martin) 
 - Firebase as a Backend Service using Firestore and Storage services
+- Strong reactive programming
 - Eithers, Monads and many other FP thingies
 - [Bloc/Cubit](https://pub.dev/packages/flutter_bloc) as a state management solution.
 - Dependency Injection using [injectable](https://pub.dev/packages/injectable) and [get_it](https://pub.dev/packages/get_it) packages
 - Feature oriented architecture, decoupling as much as possible the entire dependency tree. 
-
 
 ---
 
