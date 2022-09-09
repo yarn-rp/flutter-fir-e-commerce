@@ -48,10 +48,9 @@ class CategoryRemoteDataSource {
   Future<void> deleteCategory({
     required String categoryId,
   }) async {
-    log('Deleting category: ${categoryId}');
     try {
       final categoryExists = await anyCategoryWithName(categoryId);
-      log('Ctegory with name${categoryId} exists? $categoryExists');
+
       if (categoryExists) {
         await categoriesCollection.doc(categoryId).get();
         final categoryToDelete = categoriesCollection.doc(categoryId);
