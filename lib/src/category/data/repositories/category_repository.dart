@@ -1,4 +1,3 @@
-import 'package:flutter_fir_e_commerce/core/error/exceptions.dart';
 import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart';
 import 'package:flutter_fir_e_commerce/core/result_type/result_type.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_fir_e_commerce/src/category/domain/error/category_failur
 import 'package:flutter_fir_e_commerce/src/category/domain/repositories/category_repository.dart';
 import 'package:flutter_fir_e_commerce/src/product/domain/entities/product.dart';
 import 'package:fpdart/fpdart.dart';
-
 import 'package:injectable/injectable.dart';
 
 @Singleton(as: CategoryRepository)
