@@ -9,7 +9,6 @@ import 'dart:io';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_fir_e_commerce/core/error/failures.dart';
 import 'package:flutter_fir_e_commerce/core/network/network_info/network_info.dart';
 import 'package:flutter_fir_e_commerce/src/category/data/data_sources/remote_data_source/category_remote_data_source.dart';
